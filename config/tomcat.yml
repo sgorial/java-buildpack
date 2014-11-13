@@ -16,7 +16,7 @@
 # Configuration for the Tomcat container
 ---
 tomcat:
-  version: 6.0.+
+  version: 7.0.+
   repository_root: "https://dl.dropboxusercontent.com/s/v89g6cz169laaao"
 lifecycle_support:
   version: 2.+
