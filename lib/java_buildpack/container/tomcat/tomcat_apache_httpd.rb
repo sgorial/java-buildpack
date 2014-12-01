@@ -29,7 +29,7 @@ module JavaBuildpack
       end
 
       def tar_name
-        "apache_2.2.14_rh5_64.tar.gz"
+        "apache_2.2.14_rh5_64.tgz"
       end
 
     end
