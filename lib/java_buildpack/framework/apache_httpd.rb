@@ -43,6 +43,11 @@ module JavaBuildpack
         .add_system_property('java.io.tmpdir', '$TMPDIR')
       end
       
+      # (see JavaBuildpack::Component::VersionedDependencyComponent#supports?)
+      def supports?
+        @application.services.one_service? FILTER, 'host-name'
+      end
+      
     end
 
   end
