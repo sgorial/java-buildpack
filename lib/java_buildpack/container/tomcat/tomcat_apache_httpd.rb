@@ -8,7 +8,7 @@ module JavaBuildpack
 
       # (see JavaBuildpack::Component::BaseComponent#compile)
       def compile
-        download_tar(tar_name)
+        download_tar
       end
 
       # (see JavaBuildpack::Component::BaseComponent#release)
