@@ -1,9 +1,9 @@
 require 'fileutils'
 require 'java_buildpack/component/versioned_dependency_component'
-require 'java_buildpack/server'
+require 'java_buildpack/framework'
 
 module JavaBuildpack
-  module Server
+  module Framework
 
     # Encapsulates the detect, compile, and release functionality for selecting an ApacheHTTPD server.
     class ApacheHTTPD < JavaBuildpack::Component::VersionedDependencyComponent
