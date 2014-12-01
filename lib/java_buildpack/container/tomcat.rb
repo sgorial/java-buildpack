@@ -22,6 +22,7 @@ require 'java_buildpack/container/tomcat/tomcat_lifecycle_support'
 require 'java_buildpack/container/tomcat/tomcat_logging_support'
 require 'java_buildpack/container/tomcat/tomcat_access_logging_support'
 require 'java_buildpack/container/tomcat/tomcat_redis_store'
+require 'java_buildpack/container/tomcat/tomcat_apache_httpd'
 
 module JavaBuildpack
   module Container
@@ -51,6 +52,7 @@ module JavaBuildpack
           TomcatLoggingSupport.new(sub_configuration_context(context, 'logging_support')),
           TomcatAccessLoggingSupport.new(sub_configuration_context(context, 'access_logging_support')),
           TomcatRedisStore.new(sub_configuration_context(context, 'redis_store')),
+          TomcatApacheHttpd.new(sub_configuration_context(context, 'apache_httpd')),
           TomcatInsightSupport.new(context)
         ]
       end
