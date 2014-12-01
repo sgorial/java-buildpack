@@ -15,27 +15,14 @@
 # limitations under the License.
 
 require 'fileutils'
-require 'java_buildpack/component/versioned_dependency_component'
+require 'java_buildpack/component/base_component'
 require 'java_buildpack/framework'
 
 module JavaBuildpack
   module Framework
 
     # Encapsulates the functionality for enabling zero-touch New Relic support.
-    class ApacheHTTPD < JavaBuildpack::Component::VersionedDependencyComponent
-
-      # Creates an instance
-      #
-      # @param [Hash] context a collection of utilities used the component
-      def initialize(context)
-        print "--> Creating APACHE instance"
-        @application    = context[:application]
-        @component_name = self.class.to_s.space_case
-        @configuration  = context[:configuration]
-        @droplet        = context[:droplet]
-
-        @droplet.java_home.root = @droplet.sandbox
-      end
+    class ApacheHTTPD < JavaBuildpack::Component::BaseComponent
       
       # (see JavaBuildpack::Component::BaseComponent#detect)
       def detect
@@ -54,11 +41,6 @@ module JavaBuildpack
       def release
         @droplet.java_opts
         .add_system_property('java.io.tmpdir', '$TMPDIR')
-      end
-      
-      # (see JavaBuildpack::Component::VersionedDependencyComponent#supports?)
-      def supports?
-        @application.services.one_service? FILTER, 'host-name'
       end
       
     end
