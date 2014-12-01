@@ -22,7 +22,7 @@ module JavaBuildpack
   module Container
 
     # Encapsulates the functionality for enabling zero-touch New Relic support.
-    class ApacheHttpd < JavaBuildpack::Component::VersionedDependencyComponent
+    class TomcatApacheHttpd < JavaBuildpack::Component::VersionedDependencyComponent
 
       # Creates an instance
       #
