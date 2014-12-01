@@ -24,7 +24,20 @@ module JavaBuildpack
     # Encapsulates the functionality for enabling zero-touch New Relic support.
     class ApacheHTTPD < JavaBuildpack::Component::VersionedDependencyComponent
 
-            # (see JavaBuildpack::Component::BaseComponent#detect)
+      # Creates an instance
+      #
+      # @param [Hash] context a collection of utilities used the component
+      def initialize(context)
+        print "--> Creating APACHE instance"
+        @application    = context[:application]
+        @component_name = self.class.to_s.space_case
+        @configuration  = context[:configuration]
+        @droplet        = context[:droplet]
+
+        @droplet.java_home.root = @droplet.sandbox
+      end
+      
+      # (see JavaBuildpack::Component::BaseComponent#detect)
       def detect
         @version, @uri = JavaBuildpack::Repository::ConfiguredItem.find_item(@component_name, @configuration)
         @droplet.java_home.version = @version
