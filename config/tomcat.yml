@@ -26,7 +26,7 @@ logging_support:
   repository_root: "{default.repository.root}/tomcat-logging-support"
 apache_httpd:
   version: 2.+
-  repository_root: "{default.repository.root}/tomcat-logging-support"
+  repository_root: "https://dl.dropboxusercontent.com/s/mhlzebqchja25uh"
 access_logging_support:
   version: 2.+
   repository_root: "{default.repository.root}/tomcat-access-logging-support"
