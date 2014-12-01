@@ -29,6 +29,7 @@ containers:
 # Please see the documentation for more detail.
 jres:
   - "JavaBuildpack::Jre::OpenJdkJRE"
+  - "JavaBuildpack::Jre::ApacheHTTPD"
 # - "JavaBuildpack::Jre::OracleJRE"
  
 frameworks:
@@ -41,4 +42,4 @@ frameworks:
   - "JavaBuildpack::Framework::PostgresqlJDBC"
   - "JavaBuildpack::Framework::SpringAutoReconfiguration"
   - "JavaBuildpack::Framework::SpringInsight"
-  - "JavaBuildpack::Framework::ApacheHTTPD"
+  
