@@ -32,7 +32,7 @@ jres:
 # - "JavaBuildpack::Jre::OracleJRE"
 
  servers:
-   - "JavaBuildpack:Server:ApacheHTTPD"
+   - "JavaBuildpack::Server::ApacheHTTPD"
   
 frameworks:
   - "JavaBuildpack::Framework::AppDynamicsAgent"
