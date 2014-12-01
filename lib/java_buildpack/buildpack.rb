@@ -42,6 +42,7 @@ module JavaBuildpack
     def detect
       tags = tag_detection('container', @containers, true)
       tags.concat tag_detection('JRE', @jres, true) unless tags.empty?
+      tags.concat tag_detection('SERVER', @servers, true) unless tags.empty?
       tags.concat tag_detection('framework', @frameworks, false) unless tags.empty?
       tags << "java-buildpack=#{@buildpack_version.to_s false}" unless tags.empty?
       tags = tags.flatten.compact.sort
@@ -60,6 +61,7 @@ module JavaBuildpack
       fail 'No container can run this application' unless container
 
       component_detection('JRE', @jres, true).first.compile
+      component_detection('SERVER', @servers, true).first.compile
       component_detection('framework', @frameworks, false).each(&:compile)
       container.compile
     end
@@ -73,6 +75,7 @@ module JavaBuildpack
       fail 'No container can run this application' unless container
 
       component_detection('JRE', @jres, true).first.release
+      component_detection('SERVER', @servers, true).first.release
       component_detection('framework', @frameworks, false).each(&:release)
       command = container.release
 
@@ -111,6 +114,8 @@ module JavaBuildpack
       components = JavaBuildpack::Util::ConfigurationUtils.load 'components'
 
       @jres       = instantiate(components['jres'], additional_libraries, application, mutable_java_home, java_opts,
+                                app_dir)
+      @servers       = instantiate(components['server'], additional_libraries, application, mutable_java_home, java_opts,
                                 app_dir)
       @frameworks = instantiate(components['frameworks'], additional_libraries, application, immutable_java_home,
                                 java_opts, app_dir)
