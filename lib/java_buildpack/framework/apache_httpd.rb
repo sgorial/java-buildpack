@@ -22,25 +22,39 @@ module JavaBuildpack
   module Framework
 
     # Encapsulates the functionality for enabling zero-touch New Relic support.
-    class ApacheHTTPD < JavaBuildpack::Component::BaseComponent
+    class ApacheHTTPD < JavaBuildpack::Component::VersionedDependencyComponent
+      include JavaBuildpack::Framework
       
-      # (see JavaBuildpack::Component::BaseComponent#detect)
-      def detect
-        @version, @uri = JavaBuildpack::Repository::ConfiguredItem.find_item(@component_name, @configuration)
-        @droplet.java_home.version = @version
-        super
+      # Creates an instance
+      #
+      # @param [Hash] context a collection of utilities used the component
+      def initialize(context)
+        super(context) { |candidate_version| candidate_version.check_size(3) }
       end
 
       # (see JavaBuildpack::Component::BaseComponent#compile)
       def compile
-        download_tar
-        @droplet.copy_resources
+        download(@version, @uri) { |file| expand file }
       end
 
       # (see JavaBuildpack::Component::BaseComponent#release)
       def release
-        @droplet.java_opts
-        .add_system_property('java.io.tmpdir', '$TMPDIR')
+      end
+      
+      # (see JavaBuildpack::Component::VersionedDependencyComponent#supports?)
+      def supports?
+        true
+      end
+      
+      def expand(file)
+        with_timing "Expanding Apache to #{@droplet.sandbox.relative_path_from(@droplet.root)}" do
+          FileUtils.mkdir_p @droplet.sandbox
+          shell "tar xzf #{file.path} -C #{@droplet.sandbox} --strip 1 --exclude webapps 2>&1"
+
+          @droplet.copy_resources
+          configure_linking
+          configure_jasper
+        end
       end
       
     end
