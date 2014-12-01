@@ -31,6 +31,9 @@ jres:
   - "JavaBuildpack::Jre::OpenJdkJRE"
 # - "JavaBuildpack::Jre::OracleJRE"
 
+servers:
+  - "JavaBuildpack:Server:ApacheHTTPD"
+  
 frameworks:
   - "JavaBuildpack::Framework::AppDynamicsAgent"
   - "JavaBuildpack::Framework::JavaOpts"
