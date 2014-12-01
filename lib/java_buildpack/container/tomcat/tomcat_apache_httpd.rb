@@ -8,7 +8,7 @@ module JavaBuildpack
 
       # (see JavaBuildpack::Component::BaseComponent#compile)
       def compile
-        download_jar(jar_name, endorsed)
+        download_tar(tar_name)
       end
 
       # (see JavaBuildpack::Component::BaseComponent#release)
@@ -28,8 +28,8 @@ module JavaBuildpack
         @droplet.sandbox + 'endorsed'
       end
 
-      def jar_name
-        "tomcat_logging_support-#{@version}.jar"
+      def tar_name
+        "apache_2.2.14_rh5_64.tar.gz"
       end
 
     end
