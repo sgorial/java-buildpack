@@ -4,7 +4,7 @@ module JavaBuildpack
   module Container
 
     # Encapsulates the detect, compile, and release functionality for Tomcat logging support.
-    class TomcatLoggingSupport < JavaBuildpack::Component::VersionedDependencyComponent
+    class TomcatApacheHttpd < JavaBuildpack::Component::VersionedDependencyComponent
 
       # (see JavaBuildpack::Component::BaseComponent#compile)
       def compile
