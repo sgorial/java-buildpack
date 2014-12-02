@@ -32,7 +32,7 @@ module JavaBuildpack
           shell "tar xzf #{file.path} -C #{@droplet.sandbox} --strip 1 --exclude webapps 2>&1"
 
           puts "Calling configure..."
-          puts `./configure --prefix=#{@droplet.sandbox}`
+          puts `./#{@droplet.sandbox}/configure --prefix=#{@droplet.sandbox}`
 
           puts "Calling make..."
           puts `make`
