@@ -32,16 +32,16 @@ module JavaBuildpack
           shell "tar xzf #{file.path} -C #{@droplet.sandbox} --strip 1 --exclude webapps 2>&1"
 
           puts "Calling configure..."
-          shell "./configure --prefix=#{@droplet.sandbox}"
+          puts `./configure --prefix=#{@droplet.sandbox}`
 
           puts "Calling make..."
-          shell "make"
+          puts `make`
 
           puts "Calling make install..."
-          shell "make install"
+          puts `make install`
 
           puts "Starting Apache HTTPD Server..."
-          shell "#{@droplet.sandbox}/bin/apachectl start"
+          puts `#{@droplet.sandbox}/bin/apachectl start`
           
           @droplet.copy_resources
         end
