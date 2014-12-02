@@ -57,7 +57,7 @@ module JavaBuildpack
           puts `make install`
           
           # Finally bring up the server
-          puts `#{@droplet.sandbox}/server/bin/apachectl start`
+          #puts `#{@droplet.sandbox}/server/bin/apachectl start`
           
           # Overlay custom http.conf file from resources (configured to listen on port 80)
           @droplet.copy_resources
