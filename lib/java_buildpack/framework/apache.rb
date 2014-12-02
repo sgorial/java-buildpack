@@ -57,10 +57,10 @@ module JavaBuildpack
           puts `make install`
           
           # CD to prefix -> where we configured Apache's installation path
-          #puts `cd /a01/software/apache-2.2.14-proxy/`
-          #puts "Apache installation directory:"
-          #puts `pwd`
-          #puts `ls -alrt`
+          puts `cd #{@droplet.sandbox}/server`
+          puts "Apache installation directory:"
+          puts `pwd`
+          puts `ls -alrt`
           
           # Finally bring up the server
           #puts `bin/apachectl start`
