@@ -29,10 +29,11 @@ module JavaBuildpack
 
       def expand(file)
         with_timing "Expanding Apache to #{@droplet.sandbox.relative_path_from(@droplet.root)}" do
-          FileUtils.mkdir_p @droplet.sandbox
-          shell "tar xzf #{file.path} -C #{@droplet.sandbox} --strip 1 --exclude webapps 2>&1"
+          FileUtils.mkdir_p @droplet.sandbox + 'source'
+          FileUtils.mkdir_p @droplet.sandbox + 'server'
+          shell "tar xzf #{file.path} -C #{@droplet.sandbox}/source --strip 1 --exclude webapps 2>&1"
           
-          cd(@droplet.sandbox + 'srclib')
+          cd(@droplet.sandbox + 'source/srclib')
 
           puts ""
           puts "Begin Apache2 HTTPD installation..."
@@ -48,18 +49,18 @@ module JavaBuildpack
           puts `mv apr-util-1.4.1/ apr-util/`
 
           # Move back to root app directory for make install
-          cd(@droplet.sandbox)
-          puts `sudo mkdir -p /a01/software/apache-2.2.14-proxy`
+          cd(@droplet.sandbox + 'source')
+          #puts `sudo mkdir -p /a01/software/apache-2.2.14-proxy`
           
-          puts `./configure --prefix=/a01/software/apache-2.2.14-proxy`
+          puts `./configure --prefix=#{@droplet.sandbox}/server`
           puts `make`
           puts `make install`
           
           # CD to prefix -> where we configured Apache's installation path
-          puts `cd /a01/software/apache-2.2.14-proxy/`
-          puts "Apache installation directory:"
-          puts `pwd`
-          puts `ls -alrt`
+          #puts `cd /a01/software/apache-2.2.14-proxy/`
+          #puts "Apache installation directory:"
+          #puts `pwd`
+          #puts `ls -alrt`
           
           # Finally bring up the server
           #puts `bin/apachectl start`
