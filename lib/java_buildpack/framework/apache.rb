@@ -26,21 +26,23 @@ module JavaBuildpack
         true
       end
 
-      def expand(file)
+def expand(file)
         with_timing "Expanding Apache to #{@droplet.sandbox.relative_path_from(@droplet.root)}" do
           FileUtils.mkdir_p @droplet.sandbox
           shell "tar xzf #{file.path} -C #{@droplet.sandbox} --strip 1 --exclude webapps 2>&1"
           
-          puts `ls -alrt /`
-          puts `ssh -t remotehost "sudo"`
-            
-          Thread.abort_on_exception = true
-          t1 = Thread.new do
-            puts  "In new thread"
-            puts `sudo apt-get install apache2`
-          end
-          sleep(1)
-          puts `ls -alrt /etc/init.d/`
+          cd(@droplet.sandbox)
+          puts `ls -lart`
+          puts `./configure`
+
+          #Thread.abort_on_exception = true
+          #t1 = Thread.new do
+          #  puts  "In new thread"
+          #  puts `sudo apt-get install apache2`
+          #end
+          #sleep(1)
+          
+          #puts `ls -alrt /etc/init.d/`
           #puts `/etc/init.d/apache2 status`
 
           #puts "Calling configure..."
