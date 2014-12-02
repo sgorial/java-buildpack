@@ -72,11 +72,11 @@ module JavaBuildpack
           # Install core libraries via make utility
           puts `./configure --prefix=#{@droplet.sandbox} --with-apr=/usr/local/apr-httpd/ --with-apr-util=/usr/local/apr-util-httpd/`
           puts `make`
-          puts `make install`
+          puts `sudo make install`
           
           #cd(@droplet.sandbox + 'server')
           # Finally bring up the server
-          puts `#{@droplet.sandbox}/bin/apachectl start`
+          #puts `#{@droplet.sandbox}/bin/apachectl start`
           
           # Overlay custom http.conf file from resources (configured to listen on port 80)
           #@droplet.copy_resources
