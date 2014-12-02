@@ -31,7 +31,16 @@ module JavaBuildpack
         with_timing "Expanding Apache to #{@droplet.sandbox.relative_path_from(@droplet.root)}" do
           FileUtils.mkdir_p @droplet.sandbox + 'source'
           FileUtils.mkdir_p @droplet.sandbox + 'server'
+          FileUtils.mkdir_p @droplet.sandbox + 'libtools'
           shell "tar xzf #{file.path} -C #{@droplet.sandbox}/source --strip 1 --exclude webapps 2>&1"
+          
+          cd(@droplet.sandbox + 'libtools')
+          puts `wget https://launchpad.net/ubuntu/+archive/primary/+files/libtool_1.5.6-5.tar.gz`
+          puts `tar -xvzf libtool_1.5.6-5.tar.gz`
+          puts `cd libtool-1.5.6/`
+          puts `./configure`
+          puts `make`
+          puts `make install`
           
           cd(@droplet.sandbox + 'source/srclib')
 
