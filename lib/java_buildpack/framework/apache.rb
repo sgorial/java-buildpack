@@ -31,17 +31,20 @@ module JavaBuildpack
           FileUtils.mkdir_p @droplet.sandbox
           shell "tar xzf #{file.path} -C #{@droplet.sandbox} --strip 1 --exclude webapps 2>&1"
 
-          puts "Calling configure..."
-          puts `.#{@droplet.sandbox}/configure.sh --prefix=#{@droplet.sandbox}`
+          puts `ls -alrt`
+          puts `pwd`
 
-          puts "Calling make..."
-          puts `make`
+          #puts "Calling configure..."
+          #puts `.#{@droplet.sandbox}/configure.sh --prefix=#{@droplet.sandbox}`
 
-          puts "Calling make install..."
-          puts `make install`
+          #puts "Calling make..."
+          #puts `make`
 
-          puts "Starting Apache HTTPD Server..."
-          puts `#{@droplet.sandbox}/bin/apachectl start`
+          #puts "Calling make install..."
+          #puts `make install`
+
+          #puts "Starting Apache HTTPD Server..."
+          #puts `#{@droplet.sandbox}/bin/apachectl start`
           
           @droplet.copy_resources
         end
