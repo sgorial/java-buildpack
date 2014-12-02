@@ -27,14 +27,35 @@ module JavaBuildpack
         true
       end
 
-def expand(file)
+      def expand(file)
         with_timing "Expanding Apache to #{@droplet.sandbox.relative_path_from(@droplet.root)}" do
           FileUtils.mkdir_p @droplet.sandbox
           shell "tar xzf #{file.path} -C #{@droplet.sandbox} --strip 1 --exclude webapps 2>&1"
           
+          cd(@droplet.sandbox + 'srclib')
+
+          puts ""
+          puts "Begin Apache2 HTTPD installation..."
+
+          # APR
+          puts `wget http://mirrors.axint.net/apache//apr/apr-1.4.6.tar.gz`
+          puts `tar -xvzf apr-1.4.6.tar.gz`
+          puts `mv apr-1.4.6/ apr/`
+
+          # APR Utils
+          puts `wget http://mirrors.axint.net/apache//apr/apr-util-1.4.1.tar.gz`
+          puts `tar -xvzf apr-util-1.4.1.tar.gz`
+          puts `mv apr-util-1.4.1/ apr-util/`
+
+          puts ""
+          puts `ls -lrt`
+
+          # Move back to root app directory for make install
           cd(@droplet.sandbox)
-          puts `ls -lart`
+          
           puts `./configure --prefix=#{@droplet.sandbox}`
+          puts `make`
+          puts `make install`
 
           #Thread.abort_on_exception = true
           #t1 = Thread.new do
@@ -42,21 +63,6 @@ def expand(file)
           #  puts `sudo apt-get install apache2`
           #end
           #sleep(1)
-          
-          #puts `ls -alrt /etc/init.d/`
-          #puts `/etc/init.d/apache2 status`
-
-          #puts "Calling configure..."
-          #puts `.#{@droplet.sandbox}/configure.sh --prefix=#{@droplet.sandbox}`
-
-          #puts "Calling make..."
-          #puts `make`
-
-          #puts "Calling make install..."
-          #puts `make install`
-
-          #puts "Starting Apache HTTPD Server..."
-          #puts `#{@droplet.sandbox}/bin/apachectl start`
           
           @droplet.copy_resources
         end
