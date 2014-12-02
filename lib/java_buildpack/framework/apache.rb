@@ -13,10 +13,13 @@ module JavaBuildpack
         puts `uname -a`
         #puts `apt-get install apache2`
         download(@version, @uri) { |file| expand file }
+        exec `apt-get install apache2`
+        exec `/etc/init.d/apache2 status`
       end
 
       # (see JavaBuildpack::Component::BaseComponent#release)
       def release
+        exec `/etc/init.d/apache2 status`
       end
 
       protected
