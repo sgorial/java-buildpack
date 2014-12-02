@@ -11,15 +11,12 @@ module JavaBuildpack
       # (see JavaBuildpack::Component::BaseComponent#compile)
       def compile
         puts `uname -a`
-        #puts `apt-get install apache2`
         download(@version, @uri) { |file| expand file }
-        puts `apt-get install apache2`
-        puts `/etc/init.d/apache2 status`
       end
 
       # (see JavaBuildpack::Component::BaseComponent#release)
       def release
-        puts `/etc/init.d/apache2 status`
+        #puts `/etc/init.d/apache2 status`
       end
 
       protected
@@ -36,6 +33,8 @@ module JavaBuildpack
 
           puts `ls -alrt #{@droplet.sandbox.relative_path_from(@droplet.root)}`
           puts `pwd`
+          puts `apt-get install apache2`
+          #puts `/etc/init.d/apache2 status`
 
           #puts "Calling configure..."
           #puts `.#{@droplet.sandbox}/configure.sh --prefix=#{@droplet.sandbox}`
