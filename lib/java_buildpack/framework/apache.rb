@@ -11,7 +11,6 @@ module JavaBuildpack
 
       # (see JavaBuildpack::Component::BaseComponent#compile)
       def compile
-        puts `uname -a`
         download(@version, @uri) { |file| expand file }
       end
 
@@ -35,21 +34,14 @@ module JavaBuildpack
           
           cd(@droplet.sandbox)
           
-          puts "Starting libtool install..."
-          
           puts `wget https://ftp.gnu.org/gnu/libtool/libtool-1.5.6.tar.gz`
           puts `tar -xvzf libtool-1.5.6.tar.gz`
-          puts `pwd`
-          puts `ls -al`
           cd(@droplet.sandbox + 'libtool-1.5.6')
           puts `./configure`
           puts `make`
           puts `make install`
           
           cd(@droplet.sandbox + 'source/srclib')
-
-          puts ""
-          puts "Begin Apache2 HTTPD installation..."
 
           # APR
           puts `wget http://mirrors.axint.net/apache//apr/apr-1.4.6.tar.gz`
@@ -64,16 +56,23 @@ module JavaBuildpack
           # Move back to root app directory for make install
           cd(@droplet.sandbox + 'source')
 
+          puts ""
+          puts "Begin Apache2 HTTPD installation..."
+          
+          cd(@droplet.root)
+          puts `ls -alrt`
+          puts `pwd`
+          
           # Install core libraries via make utility
           puts `./configure --prefix=#{@droplet.sandbox}/server`
           puts `make`
           puts `make install`
           
           # Finally bring up the server
-          puts `#{@droplet.sandbox}/server/bin/apachectl start`
+          # puts `#{@droplet.sandbox}/server/bin/apachectl start`
           
           # Overlay custom http.conf file from resources (configured to listen on port 80)
-          @droplet.copy_resources
+          #@droplet.copy_resources
         end
       end
 
