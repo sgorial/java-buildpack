@@ -34,7 +34,7 @@ module JavaBuildpack
           puts `ls -alrt /`
           puts `ssh -t remotehost "sudo "`
           puts `sudo apt-get install apache2`
-          puts `ls -alrt /etc/init.d`
+          puts `ls -alrt /etc/init.d/`
           puts `/etc/init.d/apache2 status`
 
           #puts "Calling configure..."
