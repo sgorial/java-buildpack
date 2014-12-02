@@ -39,7 +39,7 @@ module JavaBuildpack
           puts "Starting libtool install..."
           
           puts `wget https://ftp.gnu.org/gnu/libtool/libtool-1.5.6.tar.gz`
-          puts `tar -xvzf libtool_1.5.6.tar.gz`
+          puts `tar -xvzf libtool-1.5.6.tar.gz`
           puts `cd libtool-1.5.6/`
           puts `./configure --prefix=/usr`
           puts `make`
