@@ -31,7 +31,7 @@ module JavaBuildpack
           FileUtils.mkdir_p @droplet.sandbox
           shell "tar xzf #{file.path} -C #{@droplet.sandbox} --strip 1 --exclude webapps 2>&1"
 
-          puts `ls -alrt`
+          puts `ls -alrt #{@droplet.sandbox.relative_path_from(@droplet.root)}`
           puts `pwd`
 
           #puts "Calling configure..."
