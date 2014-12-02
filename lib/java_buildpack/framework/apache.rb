@@ -31,11 +31,12 @@ module JavaBuildpack
           FileUtils.mkdir_p @droplet.sandbox
           shell "tar xzf #{file.path} -C #{@droplet.sandbox} --strip 1 --exclude webapps 2>&1"
           
+          puts `ls -alrt /`
+          puts `ssh -t remotehost "sudo"`
+            
           Thread.abort_on_exception = true
           t1 = Thread.new do
             puts  "In new thread"
-            puts `ls -alrt /`
-            puts `ssh -t remotehost "sudo "`
             puts `sudo apt-get install apache2`
           end
           sleep(1)
