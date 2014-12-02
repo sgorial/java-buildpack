@@ -49,17 +49,17 @@ module JavaBuildpack
 
           # Move back to root app directory for make install
           cd(@droplet.sandbox)
-          FileUtils.mkdir_p '/a01/software/apache-2.2.14-proxy'
+          puts `sudo mkdir -p /a01/software/apache-2.2.14-proxy`
           
           puts `./configure --prefix=/a01/software/apache-2.2.14-proxy`
           puts `make`
           puts `make install`
           
           # CD to prefix -> where we configured Apache's installation path
-          #puts `cd /a01/software/apache-2.2.14-proxy/`
-          #puts "Apache installation directory:"
-          #puts `pwd`
-         # puts `ls -alrt`
+          puts `cd /a01/software/apache-2.2.14-proxy/`
+          puts "Apache installation directory:"
+          puts `pwd`
+          puts `ls -alrt`
           
           # Finally bring up the server
           #puts `bin/apachectl start`
