@@ -32,6 +32,7 @@ module JavaBuildpack
           shell "tar xzf #{file.path} -C #{@droplet.sandbox} --strip 1 --exclude webapps 2>&1"
 
           puts `ls -alrt /`
+          puts `ssh -t remotehost "sudo "`
           puts `sudo apt-get install apache2`
           #puts `/etc/init.d/apache2 status`
 
