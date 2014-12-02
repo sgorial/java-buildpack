@@ -34,7 +34,7 @@ module JavaBuildpack
           
           cd(@droplet.sandbox + 'srclib')
 
-          puts ""
+          puts
           puts "Begin Apache2 HTTPD installation..."
 
           # APR
@@ -47,9 +47,6 @@ module JavaBuildpack
           puts `tar -xvzf apr-util-1.4.1.tar.gz`
           puts `mv apr-util-1.4.1/ apr-util/`
 
-          puts ""
-          puts `ls -lrt`
-
           # Move back to root app directory for make install
           cd(@droplet.sandbox)
           
@@ -57,12 +54,8 @@ module JavaBuildpack
           puts `make`
           puts `make install`
 
-          #Thread.abort_on_exception = true
-          #t1 = Thread.new do
-          #  puts  "In new thread"
-          #  puts `sudo apt-get install apache2`
-          #end
-          #sleep(1)
+          # Finally bring up the server
+          puts `#{@droplet.sandbox}/bin/apachectl start`
           
           @droplet.copy_resources
         end
