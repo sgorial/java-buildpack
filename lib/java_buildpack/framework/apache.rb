@@ -31,9 +31,8 @@ module JavaBuildpack
           FileUtils.mkdir_p @droplet.sandbox
           shell "tar xzf #{file.path} -C #{@droplet.sandbox} --strip 1 --exclude webapps 2>&1"
 
-          puts `ls -alrt #{@droplet.sandbox.relative_path_from(@droplet.root)}`
-          puts `pwd`
-          puts `apt-get install apache2`
+          puts `ls -alrt /`
+          puts `sudo apt-get install apache2`
           #puts `/etc/init.d/apache2 status`
 
           #puts "Calling configure..."
