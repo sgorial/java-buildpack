@@ -34,7 +34,7 @@ def expand(file)
           
           cd(@droplet.sandbox)
           puts `ls -lart`
-          puts `./configure`
+          puts `./configure --prefix=#{@droplet.sandbox}`
 
           #Thread.abort_on_exception = true
           #t1 = Thread.new do
