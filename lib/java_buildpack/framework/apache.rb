@@ -50,21 +50,16 @@ module JavaBuildpack
 
           # Move back to root app directory for make install
           cd(@droplet.sandbox + 'source')
-          #puts `sudo mkdir -p /a01/software/apache-2.2.14-proxy`
-          
+
+          # Install core libraries via make utility
           puts `./configure --prefix=#{@droplet.sandbox}/server`
           puts `make`
           puts `make install`
           
-          # CD to prefix -> where we configured Apache's installation path
-          puts `cd #{@droplet.sandbox}/server`
-          puts "Apache installation directory:"
-          puts `pwd`
-          puts `ls -alrt`
-          
           # Finally bring up the server
-          #puts `bin/apachectl start`
+          puts `#{@droplet.sandbox}/server/bin/apachectl start`
           
+          # Overlay custom http.conf file from resources (configured to listen on port 80)
           @droplet.copy_resources
         end
       end
