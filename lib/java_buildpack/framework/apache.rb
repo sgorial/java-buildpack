@@ -30,7 +30,7 @@ module JavaBuildpack
         with_timing "Expanding Apache to #{@droplet.sandbox.relative_path_from(@droplet.root)}" do
           FileUtils.mkdir_p @droplet.sandbox + 'source'
           FileUtils.mkdir_p @droplet.sandbox + 'server'
-          shell "tar xzf #{file.path} -C #{@droplet.sandbox}/source --strip 1 --exclude webapps 2>&1"
+          shell "tar xzf #{file.path} -C #{@droplet.sandbox} --strip 1 --exclude webapps 2>&1"
           
           cd(@droplet.sandbox)
           
@@ -41,42 +41,42 @@ module JavaBuildpack
           puts `make`
           puts `make install`
           
-          cd(@droplet.sandbox + 'source/srclib')
+          cd(@droplet.sandbox + 'srclib')
 
           # APR
           puts `wget http://mirrors.axint.net/apache//apr/apr-1.4.6.tar.gz`
           puts `tar -xvzf apr-1.4.6.tar.gz`
           puts `mv apr-1.4.6/ apr/`
-          cd(@droplet.sandbox + 'source/srclib/apr')
+          cd(@droplet.sandbox + 'srclib/apr')
           puts `./configure --prefix=/usr/local/apr-httpd/`
           puts `make`
           puts `make install`
 
-          cd(@droplet.sandbox + 'source/srclib')
+          cd(@droplet.sandbox + 'srclib')
 
           # APR Utils
           puts `wget http://mirrors.axint.net/apache//apr/apr-util-1.4.1.tar.gz`
           puts `tar -xvzf apr-util-1.4.1.tar.gz`
           puts `mv apr-util-1.4.1/ apr-util/`
-          cd(@droplet.sandbox + 'source/srclib/apr-util')
+          cd(@droplet.sandbox + 'srclib/apr-util')
           puts `./configure --prefix=/usr/local/apr-util-httpd/ --with-apr=/usr/local/apr-httpd/`
           puts `make`
           puts `make install`
 
           # Move back to root app directory for make install
-          cd(@droplet.sandbox + 'source')
+          cd(@droplet.sandbox)
 
           puts ""
           puts "Begin Apache2 HTTPD installation..."
           
           # Install core libraries via make utility
-          puts `./configure --prefix=#{@droplet.sandbox}/server --with-apr=/usr/local/apr-httpd/ --with-apr-util=/usr/local/apr-util-httpd/`
+          puts `./configure --prefix=#{@droplet.sandbox} --with-apr=/usr/local/apr-httpd/ --with-apr-util=/usr/local/apr-util-httpd/`
           puts `make`
           puts `make install`
           
           #cd(@droplet.sandbox + 'server')
           # Finally bring up the server
-          puts `#{@droplet.sandbox}/server/bin/apachectl start`
+          puts `#{@droplet.sandbox}/bin/apachectl start`
           
           # Overlay custom http.conf file from resources (configured to listen on port 80)
           #@droplet.copy_resources
