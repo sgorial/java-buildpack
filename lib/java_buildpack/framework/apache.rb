@@ -40,6 +40,7 @@ module JavaBuildpack
           puts `wget https://ftp.gnu.org/gnu/libtool/libtool-1.5.6.tar.gz`
           puts `tar -xvzf libtool-1.5.6.tar.gz`
           puts `pwd`
+          puts `ls -al`
           puts `cd #{@droplet.sandbox}/libtool-1.5.6`
           puts `./configure`
           puts `make`
