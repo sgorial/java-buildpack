@@ -56,9 +56,12 @@ module JavaBuildpack
           
           # CD to prefix -> where we configured Apache's installation path
           cd(@droplet.sandbox)
+          puts "Apache installation directory:"
+          puts `pwd`
+          puts `ls -alrt`
           
           # Finally bring up the server
-          puts `bin/apachectl start`
+          #puts `./bin/apachectl start`
           
           @droplet.copy_resources
         end
