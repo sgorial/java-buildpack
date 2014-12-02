@@ -34,7 +34,7 @@ module JavaBuildpack
           
           cd(@droplet.sandbox + 'srclib')
 
-          puts
+          puts ""
           puts "Begin Apache2 HTTPD installation..."
 
           # APR
