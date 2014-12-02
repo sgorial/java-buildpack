@@ -60,13 +60,13 @@ module JavaBuildpack
           puts "Begin Apache2 HTTPD installation..."
           
           # Install core libraries via make utility
-          puts `./configure --prefix=/tmp/staged/app/.java-buildpack/apache/server`
+          puts `./configure --prefix=#{@droplet.sandbox}/server --with-included-apr`
           puts `make`
           puts `make install`
           
-          cd(@droplet.sandbox + 'source')
+          cd(@droplet.sandbox + 'server')
           # Finally bring up the server
-          # puts `#{@droplet.sandbox}/server/bin/apachectl start`
+          puts `./bin/apachectl start`
           
           # Overlay custom http.conf file from resources (configured to listen on port 80)
           #@droplet.copy_resources
