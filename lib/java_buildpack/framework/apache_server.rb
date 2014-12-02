@@ -25,7 +25,7 @@ module JavaBuildpack
       # (see JavaBuildpack::Component::ModularComponent#sub_components)
       def sub_components(context)
         [
-          Apache.new(sub_configuration_context(context, 'apache'))
+          Apache.new(sub_configuration_context(context, 'apache_server'))
         ]
       end
 
