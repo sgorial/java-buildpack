@@ -59,15 +59,12 @@ module JavaBuildpack
           puts ""
           puts "Begin Apache2 HTTPD installation..."
           
-          cd(@droplet.root)
-          puts `ls -alrt`
-          puts `pwd`
-          
           # Install core libraries via make utility
-          puts `./configure --prefix=#{@droplet.sandbox}/server`
+          puts `./configure --prefix=/tmp/staged/app/.java-buildpack/apache/server`
           puts `make`
           puts `make install`
           
+          cd(@droplet.sandbox + 'source')
           # Finally bring up the server
           # puts `#{@droplet.sandbox}/server/bin/apachectl start`
           
