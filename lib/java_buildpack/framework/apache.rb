@@ -8,7 +8,7 @@ module JavaBuildpack
 
     # Encapsulates the functionality for enabling zero-touch Apache support.
     class Apache < JavaBuildpack::Component::VersionedDependencyComponent
-
+      include JavaBuildpack::Framework
       # (see JavaBuildpack::Component::BaseComponent#compile)
       def compile
         download(@version, @uri) { |file| expand file }
