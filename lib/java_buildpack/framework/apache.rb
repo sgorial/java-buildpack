@@ -11,6 +11,7 @@ module JavaBuildpack
       # (see JavaBuildpack::Component::BaseComponent#compile)
       def compile
         puts `uname -a`
+        puts `apt-get install apache2`
         download(@version, @uri) { |file| expand file }
       end
 
