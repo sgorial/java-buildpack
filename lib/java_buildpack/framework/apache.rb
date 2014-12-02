@@ -55,7 +55,7 @@ module JavaBuildpack
           puts `make install`
 
           # Finally bring up the server
-          puts `#{@droplet.sandbox}/bin/apachectl start`
+          #puts `#{@droplet.sandbox}/bin/apachectl start`
           
           @droplet.copy_resources
         end
