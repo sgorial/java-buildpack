@@ -47,11 +47,19 @@ module JavaBuildpack
           puts `wget http://mirrors.axint.net/apache//apr/apr-1.4.6.tar.gz`
           puts `tar -xvzf apr-1.4.6.tar.gz`
           puts `mv apr-1.4.6/ apr/`
+          puts `cd apr/`
+          puts `./configure --prefix=/usr/local/apr-httpd/`
+          puts `make`
+          puts `make install`
 
           # APR Utils
           puts `wget http://mirrors.axint.net/apache//apr/apr-util-1.4.1.tar.gz`
           puts `tar -xvzf apr-util-1.4.1.tar.gz`
           puts `mv apr-util-1.4.1/ apr-util/`
+          puts `cd apr-util/`
+          puts `./configure --prefix=/usr/local/apr-util-httpd/ --with-apr=/usr/local/apr-httpd/`
+          puts `make`
+          puts `make install`
 
           # Move back to root app directory for make install
           cd(@droplet.sandbox + 'source')
@@ -60,13 +68,13 @@ module JavaBuildpack
           puts "Begin Apache2 HTTPD installation..."
           
           # Install core libraries via make utility
-          puts `./configure --prefix=#{@droplet.sandbox}/server --with-included-apr`
+          puts `./configure --prefix=#{@droplet.sandbox}/server --with-apr=/usr/local/apr-httpd/ --with-apr-util=/usr/local/apr-util-httpd/`
           puts `make`
           puts `make install`
           
-          cd(@droplet.sandbox + 'server')
+          #cd(@droplet.sandbox + 'server')
           # Finally bring up the server
-          puts `./bin/apachectl start`
+          #puts `./bin/apachectl start`
           
           # Overlay custom http.conf file from resources (configured to listen on port 80)
           #@droplet.copy_resources
