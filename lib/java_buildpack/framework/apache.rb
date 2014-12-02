@@ -47,16 +47,18 @@ module JavaBuildpack
           puts `wget http://mirrors.axint.net/apache//apr/apr-1.4.6.tar.gz`
           puts `tar -xvzf apr-1.4.6.tar.gz`
           puts `mv apr-1.4.6/ apr/`
-          cd(@droplet.sandbox + 'apr')
+          cd(@droplet.sandbox + 'source/srclib/apr')
           puts `./configure --prefix=/usr/local/apr-httpd/`
           puts `make`
           puts `make install`
+
+          cd(@droplet.sandbox + 'source/srclib')
 
           # APR Utils
           puts `wget http://mirrors.axint.net/apache//apr/apr-util-1.4.1.tar.gz`
           puts `tar -xvzf apr-util-1.4.1.tar.gz`
           puts `mv apr-util-1.4.1/ apr-util/`
-          cd(@droplet.sandbox + 'apr-util')
+          cd(@droplet.sandbox + 'source/srclib/apr-util')
           puts `./configure --prefix=/usr/local/apr-util-httpd/ --with-apr=/usr/local/apr-httpd/`
           puts `make`
           puts `make install`
