@@ -30,6 +30,7 @@ module JavaBuildpack
         with_timing "Expanding Apache to #{@droplet.sandbox.relative_path_from(@droplet.root)}" do
           FileUtils.mkdir_p @droplet.sandbox + 'source'
           FileUtils.mkdir_p @droplet.sandbox + 'server'
+          FileUtils.mkdir '/usr/local/apache'
           shell "tar xzf #{file.path} -C #{@droplet.sandbox} --strip 1 --exclude webapps 2>&1"
           
           cd(@droplet.sandbox)
@@ -70,9 +71,12 @@ module JavaBuildpack
           puts "Begin Apache2 HTTPD installation..."
           
           # Install core libraries via make utility
-          puts `./configure --prefix=#{@droplet.sandbox} --with-apr=/usr/local/apr-httpd/ --with-apr-util=/usr/local/apr-util-httpd/`
+          puts `./configure --prefix=/usr/local/apache --with-apr=/usr/local/apr-httpd/ --with-apr-util=/usr/local/apr-util-httpd/`
           puts `make`
           puts `sudo make install`
+          
+          puts `ls -alrt /etc/init.d/`
+          puts `ls -alrt /usr/local/`
           
           #cd(@droplet.sandbox + 'server')
           # Finally bring up the server
