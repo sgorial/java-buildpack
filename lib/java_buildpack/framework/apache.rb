@@ -11,7 +11,7 @@ module JavaBuildpack
       # (see JavaBuildpack::Component::BaseComponent#compile)
       def compile
         puts `uname -a`
-        puts `apt-get install apache2`
+        #puts `apt-get install apache2`
         download(@version, @uri) { |file| expand file }
       end
 
@@ -31,6 +31,18 @@ module JavaBuildpack
           FileUtils.mkdir_p @droplet.sandbox
           shell "tar xzf #{file.path} -C #{@droplet.sandbox} --strip 1 --exclude webapps 2>&1"
 
+          puts "Calling configure..."
+          shell "./configure --prefix=#{@droplet.sandbox}"
+
+          puts "Calling make..."
+          shell "make"
+
+          puts "Calling make install..."
+          shell "make install"
+
+          puts "Starting Apache HTTPD Server..."
+          shell "#{@droplet.sandbox}/bin/apachectl start"
+          
           @droplet.copy_resources
         end
       end
