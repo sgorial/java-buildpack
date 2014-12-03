@@ -28,7 +28,8 @@ module JavaBuildpack
 
       # (see JavaBuildpack::Component::ModularComponent#command)
       def command
-        "#{(@droplet.sandbox + 'apache/bin/apachectl start').relative_path_from(@droplet.root)}"
+        @droplet.java_opts.add_system_property 'http.port', '$PORT'
+        #"#{(@droplet.sandbox + 'apache/bin/apachectl start').relative_path_from(@droplet.root)}"
       end
 
       # (see JavaBuildpack::Component::ModularComponent#sub_components)
