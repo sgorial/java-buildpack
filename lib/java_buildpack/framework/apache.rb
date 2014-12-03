@@ -16,7 +16,7 @@ module JavaBuildpack
 
       # (see JavaBuildpack::Component::BaseComponent#release)
       def release
-        #puts `/etc/init.d/apache2 status`
+        puts "releasing apache..."
       end
 
       protected
@@ -85,10 +85,12 @@ module JavaBuildpack
           puts `make install`
           
           # Finally bring up the apache
-          cd(@droplet.sandbox + 'apache')
-          puts `#{@droplet.sandbox}/apache/bin/apachectl start`
+          #cd(@droplet.sandbox + 'apache')
+          #puts `#{@droplet.sandbox}/apache/bin/apachectl start`
           puts `ps -ef | grep http`
-          puts `#{@droplet.sandbox}/apache/bin/apachectl status`
+          puts `lsof -i tcp:80`
+          
+          puts `#{@droplet.sandbox}/apache/bin/apachectl fullstatus`
           
           # Overlay http.conf from resources for Apache to listen on port 80
           @droplet.copy_resources(@droplet.sandbox + 'apache')
