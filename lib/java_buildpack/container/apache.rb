@@ -31,9 +31,9 @@ module JavaBuildpack
 
       # (see JavaBuildpack::Component::BaseComponent#release)
       def release
-        puts "releasing apache..."
-        puts `sudo #{@droplet.sandbox}/apache/bin/apachectl start`
-        puts `ps -ef | grep http`
+        #puts "releasing apache..."
+        #puts `sudo #{@droplet.sandbox}/apache/bin/apachectl start`
+        #puts `ps -ef | grep http`
         #puts `#{@droplet.sandbox}/apache/bin/apachectl fullstatus`
       end
 
