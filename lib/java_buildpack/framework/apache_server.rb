@@ -8,8 +8,6 @@ module JavaBuildpack
     # Encapsulates the detect, compile, and release functionality for Tomcat applications.
     class ApacheServer < JavaBuildpack::Component::ModularComponent
 
-      protected
-
       # (see JavaBuildpack::Component::ModularComponent#command)
       def command
         @droplet.java_opts.add_system_property 'http.port', '$PORT'
@@ -25,15 +23,13 @@ module JavaBuildpack
       # (see JavaBuildpack::Component::ModularComponent#sub_components)
       def sub_components(context)
         [
-          Apache.new(sub_configuration_context(context, 'apache_server'))
+          Apache.new(sub_configuration_context(context, 'apache'))
         ]
       end
 
       # (see JavaBuildpack::Component::ModularComponent#supports?)
       def supports?
       end
-
-      private
 
     end
 
