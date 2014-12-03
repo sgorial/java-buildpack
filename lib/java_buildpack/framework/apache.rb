@@ -45,10 +45,10 @@ module JavaBuildpack
           cd(@droplet.sandbox)
 
           puts `wget http://sourceforge.net/projects/pcre/files/pcre/8.36/pcre-8.36.tar.gz`
-          puts `tar -xvzf pcre-8.35.tar.gz`
+          puts `tar -xvzf pcre-8.36.tar.gz`
           puts `pwd`
           puts `ls -alrt`
-          cd(@droplet.sandbox + 'pcre-8.35')
+          cd(@droplet.sandbox + 'pcre-8.36')
           puts `pwd`
           puts `ls -alrt`
           puts `./configure`
