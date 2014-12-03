@@ -91,7 +91,7 @@ module JavaBuildpack
           puts `#{@droplet.sandbox}/apache/bin/apachectl status`
           
           # Overlay http.conf from resources for Apache to listen on port 80
-          @droplet.copy_resources
+          @droplet.copy_resources(@droplet.sandbox + 'apache')
         end
       end
 
