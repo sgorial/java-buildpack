@@ -8,7 +8,7 @@ module JavaBuildpack
 
     # Encapsulates the functionality for enabling zero-touch Apache support.
     class Apache < JavaBuildpack::Component::VersionedDependencyComponent
-      include JavaBuildpack::Framework
+      #include JavaBuildpack::Framework
       # (see JavaBuildpack::Component::BaseComponent#compile)
       def compile
         download(@version, @uri) { |file| expand file }
@@ -16,9 +16,9 @@ module JavaBuildpack
 
       # (see JavaBuildpack::Component::BaseComponent#release)
       def release
-        #puts "releasing apache..."
-        #puts `sudo #{@droplet.sandbox}/apache/bin/apachectl start`
-        #puts `ps -ef | grep http`
+        puts "releasing apache..."
+        puts `sudo #{@droplet.sandbox}/apache/bin/apachectl start`
+        puts `ps -ef | grep http`
         #puts `#{@droplet.sandbox}/apache/bin/apachectl fullstatus`
       end
 
@@ -54,28 +54,6 @@ module JavaBuildpack
           puts `make`
           puts `make install`
           
-          #cd(@droplet.sandbox + 'source/srclib')
-
-          # APR
-          #puts `wget http://mirrors.axint.net/apache//apr/apr-1.4.6.tar.gz`
-          #puts `tar -xvzf apr-1.4.6.tar.gz`
-          #puts `mv apr-1.4.6/ apr/`
-          #cd(@droplet.sandbox + 'source/srclib/apr')
-          #puts `./configure --prefix=/usr/local/apr-httpd/`
-          #puts `make`
-          #puts `make install`
-
-          #cd(@droplet.sandbox + 'source/srclib')
-
-          # APR Utils
-          #puts `wget http://mirrors.axint.net/apache//apr/apr-util-1.4.1.tar.gz`
-          #puts `tar -xvzf apr-util-1.4.1.tar.gz`
-          #puts `mv apr-util-1.4.1/ apr-util/`
-          #cd(@droplet.sandbox + 'source/srclib/apr-util')
-          #puts `./configure --prefix=/usr/local/apr-util-httpd/ --with-apr=/usr/local/apr-httpd/`
-          #puts `make`
-          #puts `make install`
-
           # Move back to soure root directory for make install
           cd(@droplet.sandbox + 'source')
 
@@ -86,8 +64,6 @@ module JavaBuildpack
           puts `./configure --prefix=#{@droplet.sandbox}/apache --with-included-apr --with-pcre=#{@droplet.sandbox}/pcre/bin/pcre-config`
           puts `make`
           puts `make install`
-          #puts `sudo #{@droplet.sandbox}/apache/bin/apachectl start`
-          #puts `ps -ef | grep http`
         
           # Overlay http.conf from resources for Apache to listen on port 80
           @droplet.copy_resources(@droplet.sandbox + 'apache')
