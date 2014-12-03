@@ -50,7 +50,7 @@ module JavaBuildpack
           cd(@droplet.sandbox + 'pcre-8.36')
           puts `./configure --prefix=#{@droplet.sandbox}/pcre`
           puts `make`
-          puts `sudo make install`
+          puts `make install`
           
           #cd(@droplet.sandbox + 'source/srclib')
 
@@ -83,7 +83,7 @@ module JavaBuildpack
           #puts `./configure --prefix=#{@droplet.sandbox}/server --with-apr=/usr/local/apr-httpd/ --with-apr-util=/usr/local/apr-util-httpd/`
           puts `./configure --prefix=#{@droplet.sandbox}/apache2 --with-included-apr --with-pcre=#{@droplet.sandbox}/pcre`
           puts `make`
-          puts `sudo make install`
+          puts `make install`
           
           puts `ls -alrt /usr/local`
           puts `ls -alrt /etc/init.d`
