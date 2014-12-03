@@ -65,14 +65,18 @@ module JavaBuildpack
           #puts `make install`
 
           # Move back to root app directory for make install
-          cd(@droplet.sandbox + 'source')
+          cd(@droplet.sandbox)
 
           puts ""
           puts "Begin Apache2 HTTPD installation..."
           
+          puts `wget http://archive.apache.org/dist/httpd/httpd-2.4.9-deps.tar.gz`
+          puts `tar -xvzf httpd-2.4.9-deps.tar.gz`
+          puts `cp #{@droplet.sandbox}/httpd-2.4.9/srclib/* #{@droplet.sandbox}/source/srclib/`
+          cd(@droplet.sandbox + 'source')
+          
           # Install core libraries via make utility
-          #puts `./configure --prefix=#{@droplet.sandbox}/server --with-apr=/usr/local/apr-httpd/ --with-apr-util=/usr/local/apr-util-httpd/`
-          puts `./configure --prefix=/usr/local/apache --prefix=/usr/local/apache --enable-so --enable-dav --enable-maintainer-mode --enable-rewrite`
+          puts `./configure --prefix=#{@droplet.sandbox}/server --with-included-apr`
           puts `sudo make`
           puts `sudo make install`
           
