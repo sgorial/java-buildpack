@@ -88,6 +88,9 @@ module JavaBuildpack
           # Finally bring up the apache
           cd(@droplet.sandbox + 'apache')
           puts `bin/apachectl start`
+          puts `ps -ef | grep http`
+          puts `ls -alrt /etc/init.d/`
+          puts `bin/apachectl status`
           
           # Overlay http.conf from resources for Apache to listen on port 80
           @droplet.copy_resources
