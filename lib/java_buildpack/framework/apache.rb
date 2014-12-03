@@ -72,7 +72,8 @@ module JavaBuildpack
           
           puts `wget http://archive.apache.org/dist/httpd/httpd-2.4.9-deps.tar.gz`
           puts `tar -xvzf httpd-2.4.9-deps.tar.gz`
-          puts `cp #{@droplet.sandbox}/httpd-2.4.9/srclib/* #{@droplet.sandbox}/source/srclib/`
+          puts `cp #{@droplet.sandbox}/httpd-2.4.9/srclib/apr/ #{@droplet.sandbox}/source/srclib/`
+          puts `cp #{@droplet.sandbox}/httpd-2.4.9/srclib/apr-util/ #{@droplet.sandbox}/source/srclib/`
           cd(@droplet.sandbox + 'source')
           
           # Install core libraries via make utility
