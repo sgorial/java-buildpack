@@ -10,6 +10,7 @@ module JavaBuildpack
 
       # (see JavaBuildpack::Component::ModularComponent#command)
       def command
+        puts "Inside command function"
         @droplet.java_opts.add_system_property 'http.port', '$PORT'
 
         [
