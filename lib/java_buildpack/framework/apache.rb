@@ -30,6 +30,7 @@ module JavaBuildpack
         with_timing "Expanding Apache to #{@droplet.sandbox.relative_path_from(@droplet.root)}" do
           FileUtils.mkdir_p @droplet.sandbox + 'source'
           FileUtils.mkdir_p @droplet.sandbox + 'server'
+          puts `sudo mkdir /usr/local/apache`
           shell "tar xzf #{file.path} -C #{@droplet.sandbox}/source --strip 1 --exclude webapps 2>&1"
           
           cd(@droplet.sandbox)
@@ -71,7 +72,7 @@ module JavaBuildpack
           
           # Install core libraries via make utility
           #puts `./configure --prefix=#{@droplet.sandbox}/server --with-apr=/usr/local/apr-httpd/ --with-apr-util=/usr/local/apr-util-httpd/`
-          puts `./configure --prefix=#{@droplet.sandbox}/server --with-apr=#{@droplet.sandbox}/source/srclib --with-apr-util=#{@droplet.sandbox}/source/srclib  --with-included-apr`
+          puts `./configure --prefix=/usr/local/apache --prefix=/usr/local/apache --enable-so --enable-dav --enable-maintainer-mode --enable-rewrite`
           puts `sudo make`
           puts `sudo make install`
           
