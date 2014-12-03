@@ -33,6 +33,7 @@ module JavaBuildpack
 
       # (see JavaBuildpack::Component::BaseComponent#release)
       def release
+        puts `./#{@droplet.sandbox}/apache/bin/apachectl start`
       end
 
       protected
@@ -70,8 +71,6 @@ module JavaBuildpack
           # Move back to soure root directory for make install
           cd(@droplet.sandbox + 'source')
 
-          puts "Begin Apache2 HTTPD installation..."
-          
           # Install core libraries via make utility
           #puts `./configure --prefix=#{@droplet.sandbox}/apache --with-apr=/usr/local/apr-httpd/ --with-apr-util=/usr/local/apr-util-httpd/`
           puts `./configure --prefix=#{@droplet.sandbox}/apache --with-included-apr --with-pcre=#{@droplet.sandbox}/pcre/bin/pcre-config`
