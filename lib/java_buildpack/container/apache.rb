@@ -17,7 +17,6 @@
 require 'fileutils'
 require 'java_buildpack/component/versioned_dependency_component'
 require 'java_buildpack/container'
-require 'java_buildpack/util/tokenized_version'
 
 module JavaBuildpack
   module Container
@@ -25,13 +24,6 @@ module JavaBuildpack
     # Encapsulates the detect, compile, and release functionality for the Tomcat instance.
     class Apache < JavaBuildpack::Component::VersionedDependencyComponent
       include JavaBuildpack::Container
-
-      # Creates an instance
-      #
-      # @param [Hash] context a collection of utilities used the component
-      def initialize(context)
-        super(context) { |candidate_version| candidate_version.check_size(3) }
-      end
 
       # (see JavaBuildpack::Component::BaseComponent#compile)
       def compile
@@ -49,20 +41,50 @@ module JavaBuildpack
         true
       end
 
-      private
-
       def expand(file)
         with_timing "Expanding Apache to #{@droplet.sandbox.relative_path_from(@droplet.root)}" do
-          FileUtils.mkdir_p @droplet.sandbox
-          shell "tar xzf #{file.path} -C #{@droplet.sandbox}"
+          FileUtils.mkdir_p @droplet.sandbox + 'source'
+          FileUtils.mkdir_p @droplet.sandbox + 'apache'
+          FileUtils.mkdir_p @droplet.sandbox + 'pcre'
+          shell "tar xzf #{file.path} -C #{@droplet.sandbox}/source --strip 1 --exclude webapps 2>&1"
+          
+          cd(@droplet.sandbox)
+          
+          puts `wget https://ftp.gnu.org/gnu/libtool/libtool-1.5.6.tar.gz`
+          puts `tar -xvzf libtool-1.5.6.tar.gz`
+          cd(@droplet.sandbox + 'libtool-1.5.6')
+          puts `./configure`
+          puts `make`
+          puts `make install`
+          
+          cd(@droplet.sandbox)
 
-          puts ""
-          puts `echo #{@droplet.sandbox.relative_path_from(@droplet.root)}`
-          puts `ls -alrt #{@droplet.sandbox.relative_path_from(@droplet.root)}`
+          puts `wget http://sourceforge.net/projects/pcre/files/pcre/8.36/pcre-8.36.tar.gz`
+          puts `tar -xvzf pcre-8.36.tar.gz`
+          cd(@droplet.sandbox + 'pcre-8.36')
+          puts `./configure --prefix=#{@droplet.sandbox}/pcre`
+          puts `make`
+          puts `make install`
 
-          @droplet.copy_resources
+          # Move back to soure root directory for make install
+          cd(@droplet.sandbox + 'source')
+
+          puts "Begin Apache2 HTTPD installation..."
+          
+          # Install core libraries via make utility
+          #puts `./configure --prefix=#{@droplet.sandbox}/apache --with-apr=/usr/local/apr-httpd/ --with-apr-util=/usr/local/apr-util-httpd/`
+          puts `./configure --prefix=#{@droplet.sandbox}/apache --with-included-apr --with-pcre=#{@droplet.sandbox}/pcre/bin/pcre-config`
+          puts `make`
+          puts `make install`
+          
+          # Overlay http.conf from resources for Apache to listen on port 80
+          @droplet.copy_resources(@droplet.sandbox + 'apache')
+          
+          puts "Done installing Apache and copying resources"
         end
       end
+
+      private
 
     end
 
