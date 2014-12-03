@@ -13,12 +13,12 @@ module JavaBuildpack
         #puts "Inside command function"
         #@droplet.java_opts.add_system_property 'http.port', '$PORT'
 
-       # [
+        [
           #@droplet.java_home.as_env_var,
           #@droplet.java_opts.as_env_var,
-        #  "$PWD/#{(@droplet.sandbox + 'apache/bin/apachectl').relative_path_from(@droplet.root)}",
-        #  'run'
-       # ].flatten.compact.join(' ')
+          "$PWD/#{(@droplet.sandbox + 'apache/bin/apachectl').relative_path_from(@droplet.root)}",
+          'start'
+        ].flatten.compact.join(' ')
       end
 
       # (see JavaBuildpack::Component::ModularComponent#sub_components)
