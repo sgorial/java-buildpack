@@ -40,7 +40,7 @@ module JavaBuildpack
           cd(@droplet.sandbox + 'libtool-1.5.6')
           puts `./configure`
           puts `make`
-          puts `sudo make install`
+          puts `make install`
           
           cd(@droplet.sandbox)
           
@@ -51,7 +51,7 @@ module JavaBuildpack
           cd(@droplet.sandbox + 'pcre-8.35')
           puts `./configure`
           puts `make`
-          puts `sudo make install`
+          puts `make install`
           
           #cd(@droplet.sandbox + 'source/srclib')
 
