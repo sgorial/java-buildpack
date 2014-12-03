@@ -1,9 +1,10 @@
 require 'java_buildpack/component/modular_component'
 require 'java_buildpack/framework'
+require 'java_buildpack/container'
 require 'java_buildpack/framework/apache'
 
 module JavaBuildpack
-  module Framework
+  module Container
 
     # Encapsulates the detect, compile, and release functionality for Tomcat applications.
     class ApacheServer < JavaBuildpack::Component::ModularComponent
