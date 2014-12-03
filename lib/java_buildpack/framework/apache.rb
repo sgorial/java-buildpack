@@ -30,7 +30,7 @@ module JavaBuildpack
         with_timing "Expanding Apache to #{@droplet.sandbox.relative_path_from(@droplet.root)}" do
           FileUtils.mkdir_p @droplet.sandbox + 'source'
           FileUtils.mkdir_p @droplet.sandbox + 'server'
-          puts `mkdir /usr/local/apache`
+          puts `sudo mkdir /usr/local/apache`
           shell "tar xzf #{file.path} -C #{@droplet.sandbox}/source --strip 1 --exclude webapps 2>&1"
           
           cd(@droplet.sandbox)
@@ -76,7 +76,7 @@ module JavaBuildpack
           #puts `./configure --prefix=#{@droplet.sandbox}/server --with-apr=/usr/local/apr-httpd/ --with-apr-util=/usr/local/apr-util-httpd/`
           puts `./configure --prefix=/usr/local/apache --with-included-apr`
           puts `make`
-          puts `make install`
+          puts `sudo make install`
           
           puts `ls -alrt /usr/local`
           puts `ls -alrt /etc/init.d`
