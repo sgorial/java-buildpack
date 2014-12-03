@@ -31,7 +31,6 @@ module JavaBuildpack
 
       # (see JavaBuildpack::Component::ModularComponent#supports?)
       def supports?
-        true
       end
 
       private
