@@ -38,30 +38,30 @@ module JavaBuildpack
           puts `tar -xvzf libtool-1.5.6.tar.gz`
           cd(@droplet.sandbox + 'libtool-1.5.6')
           puts `./configure`
-          puts `make`
-          puts `make install`
+          puts `sudo make`
+          puts `sudo make install`
           
-          cd(@droplet.sandbox + 'source/srclib')
+          #cd(@droplet.sandbox + 'source/srclib')
 
           # APR
-          puts `wget http://mirrors.axint.net/apache//apr/apr-1.4.6.tar.gz`
-          puts `tar -xvzf apr-1.4.6.tar.gz`
-          puts `mv apr-1.4.6/ apr/`
-          cd(@droplet.sandbox + 'source/srclib/apr')
-          puts `./configure --prefix=/usr/local/apr-httpd/`
-          puts `make`
-          puts `make install`
+          #puts `wget http://mirrors.axint.net/apache//apr/apr-1.4.6.tar.gz`
+          #puts `tar -xvzf apr-1.4.6.tar.gz`
+          #puts `mv apr-1.4.6/ apr/`
+          #cd(@droplet.sandbox + 'source/srclib/apr')
+          #puts `./configure --prefix=/usr/local/apr-httpd/`
+          #puts `make`
+          #puts `make install`
 
-          cd(@droplet.sandbox + 'source/srclib')
+          #cd(@droplet.sandbox + 'source/srclib')
 
           # APR Utils
-          puts `wget http://mirrors.axint.net/apache//apr/apr-util-1.4.1.tar.gz`
-          puts `tar -xvzf apr-util-1.4.1.tar.gz`
-          puts `mv apr-util-1.4.1/ apr-util/`
-          cd(@droplet.sandbox + 'source/srclib/apr-util')
-          puts `./configure --prefix=/usr/local/apr-util-httpd/ --with-apr=/usr/local/apr-httpd/`
-          puts `make`
-          puts `make install`
+          #puts `wget http://mirrors.axint.net/apache//apr/apr-util-1.4.1.tar.gz`
+          #puts `tar -xvzf apr-util-1.4.1.tar.gz`
+          #puts `mv apr-util-1.4.1/ apr-util/`
+          #cd(@droplet.sandbox + 'source/srclib/apr-util')
+          #puts `./configure --prefix=/usr/local/apr-util-httpd/ --with-apr=/usr/local/apr-httpd/`
+          #puts `make`
+          #puts `make install`
 
           # Move back to root app directory for make install
           cd(@droplet.sandbox + 'source')
@@ -70,9 +70,10 @@ module JavaBuildpack
           puts "Begin Apache2 HTTPD installation..."
           
           # Install core libraries via make utility
-          puts `./configure --prefix=#{@droplet.sandbox}/server --with-apr=/usr/local/apr-httpd/ --with-apr-util=/usr/local/apr-util-httpd/`
-          puts `make`
-          puts `make install`
+          #puts `./configure --prefix=#{@droplet.sandbox}/server --with-apr=/usr/local/apr-httpd/ --with-apr-util=/usr/local/apr-util-httpd/`
+          puts `./configure --prefix=#{@droplet.sandbox}/server --with-apr=#{@droplet.sandbox}/source/srclib --with-apr-util=#{@droplet.sandbox}/source/srclib  --with-included-apr`
+          puts `sudo make`
+          puts `sudo make install`
           
           #cd(@droplet.sandbox + 'server')
           # Finally bring up the server
