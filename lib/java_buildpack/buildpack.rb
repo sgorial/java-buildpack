@@ -73,13 +73,13 @@ module JavaBuildpack
       fail 'No container can run this application' unless container
 
       component_detection('JRE', @jres, true).first.release
-      component_detection('framework', @frameworks, false).each(&:release)
+      framework = component_detection('framework', @frameworks, false).each(&:release)
       command = container.release
 
       payload = {
         'addons'                => [],
         'config_vars'           => {},
-        'default_process_types' => { 'web' => command }
+        'default_process_types' => { 'web' => command + framework }
       }.to_yaml
 
       @logger.debug { "Release Payload:\n#{payload}" }
