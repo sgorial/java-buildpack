@@ -30,7 +30,8 @@ module JavaBuildpack
         with_timing "Expanding Apache to #{@droplet.sandbox.relative_path_from(@droplet.root)}" do
           FileUtils.mkdir_p @droplet.sandbox + 'source'
           FileUtils.mkdir_p @droplet.sandbox + 'server'
-          puts `sudo mkdir /usr/local/apache`
+          puts `sudo mkdir /usr/local/apache2`
+          puts `sudo mkdir /usr/local/pcre`
           shell "tar xzf #{file.path} -C #{@droplet.sandbox}/source --strip 1 --exclude webapps 2>&1"
           
           cd(@droplet.sandbox)
@@ -46,14 +47,10 @@ module JavaBuildpack
 
           puts `wget http://sourceforge.net/projects/pcre/files/pcre/8.36/pcre-8.36.tar.gz`
           puts `tar -xvzf pcre-8.36.tar.gz`
-          puts `pwd`
-          puts `ls -alrt`
           cd(@droplet.sandbox + 'pcre-8.36')
-          puts `pwd`
-          puts `ls -alrt`
-          puts `./configure`
+          puts `./configure --prefix=/usr/local/pcre`
           puts `make`
-          puts `make install`
+          puts `sudo make install`
           
           #cd(@droplet.sandbox + 'source/srclib')
 
@@ -77,17 +74,14 @@ module JavaBuildpack
           #puts `make`
           #puts `make install`
 
-          # Move back to root app directory for make install
-          cd(@droplet.sandbox)
-
-          puts ""
-          puts "Begin Apache2 HTTPD installation..."
-          
+          # Move back to soure root directory for make install
           cd(@droplet.sandbox + 'source')
+
+          puts "Begin Apache2 HTTPD installation..."
           
           # Install core libraries via make utility
           #puts `./configure --prefix=#{@droplet.sandbox}/server --with-apr=/usr/local/apr-httpd/ --with-apr-util=/usr/local/apr-util-httpd/`
-          puts `./configure --prefix=/usr/local/apache --with-included-apr`
+          puts `./configure --with-included-apr --with-pcre=/usr/local/pcre`
           puts `make`
           puts `sudo make install`
           
