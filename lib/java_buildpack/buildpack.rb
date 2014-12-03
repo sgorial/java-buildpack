@@ -79,7 +79,7 @@ module JavaBuildpack
       payload = {
         'addons'                => [],
         'config_vars'           => {},
-        'default_process_types' => { 'web' => common }
+        'default_process_types' => { 'web' => command }
       }.to_yaml
 
       @logger.debug { "Release Payload:\n#{payload}" }
