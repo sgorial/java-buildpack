@@ -28,11 +28,7 @@ module JavaBuildpack
 
       # (see JavaBuildpack::Component::ModularComponent#command)
       def command
-        [
-          'sudo',
-          "#{(@droplet.sandbox + 'apache/bin/apachectl').relative_path_from(@droplet.root)}",
-          'start'
-        ].flatten.compact.join(' ')
+        "#{(@droplet.sandbox + 'apache/bin/apachectl start').relative_path_from(@droplet.root)}"
       end
 
       # (see JavaBuildpack::Component::ModularComponent#sub_components)
