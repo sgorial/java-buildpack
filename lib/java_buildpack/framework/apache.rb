@@ -44,7 +44,7 @@ module JavaBuildpack
           puts `make`
           puts `make install`
           
-          #cd(@droplet.sandbox + 'source/srclib')
+          cd(@droplet.sandbox + 'source/srclib')
 
           # APR
           puts `wget http://mirrors.axint.net/apache//apr/apr-1.4.6.tar.gz`
@@ -55,7 +55,7 @@ module JavaBuildpack
           puts `make`
           puts `make install`
 
-          #cd(@droplet.sandbox + 'source/srclib')
+          cd(@droplet.sandbox + 'source/srclib')
 
           # APR Utils
           puts `wget http://mirrors.axint.net/apache//apr/apr-util-1.4.1.tar.gz`
