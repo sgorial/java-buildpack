@@ -15,7 +15,7 @@ module JavaBuildpack
         [
           @droplet.java_home.as_env_var,
           @droplet.java_opts.as_env_var,
-          "$PWD/#{(@droplet.sandbox + 'server/bin/apachectl start').relative_path_from(@droplet.root)}",
+          "$PWD/#{(@droplet.sandbox + 'apache/bin/apachectl start').relative_path_from(@droplet.root)}",
           'run'
         ].flatten.compact.join(' ')
       end
