@@ -33,6 +33,8 @@ module JavaBuildpack
           puts `mkdir /usr/local/apache`
           shell "tar xzf #{file.path} -C #{@droplet.sandbox}/source --strip 1 --exclude webapps 2>&1"
           
+          puts `apt-get install gcc build-essential`
+          
           cd(@droplet.sandbox)
           
           puts `wget https://ftp.gnu.org/gnu/libtool/libtool-1.5.6.tar.gz`
