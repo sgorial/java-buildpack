@@ -45,7 +45,7 @@ module JavaBuildpack
           cd(@droplet.sandbox)
           
           puts ""
-          puts `INSTALLING PCRE`
+          puts "INSTALLING PCRE"
           puts `wget http://sourceforge.net/projects/pcre/files/pcre/8.35/pcre-8.35.tar.bz2/download`
           puts `tar -xvzf pcre-8.35.tar.bz2`
           cd(@droplet.sandbox + 'pcre-8.35')
