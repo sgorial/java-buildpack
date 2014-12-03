@@ -75,7 +75,8 @@ module JavaBuildpack
           cd(@droplet.sandbox + 'source')
           
           # Install core libraries via make utility
-          puts `./configure --prefix=#{@droplet.sandbox}/server --with-apr=/usr/local/apr-httpd/ --with-apr-util=/usr/local/apr-util-httpd/`
+          #puts `./configure --prefix=#{@droplet.sandbox}/server --with-apr=/usr/local/apr-httpd/ --with-apr-util=/usr/local/apr-util-httpd/`
+          puts `./configure --prefix=#{@droplet.sandbox}/server --with-included-apr`
           puts `make`
           puts `make install`
           
