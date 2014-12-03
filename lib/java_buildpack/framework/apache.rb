@@ -29,7 +29,6 @@ module JavaBuildpack
       def expand(file)
         with_timing "Expanding Apache to #{@droplet.sandbox.relative_path_from(@droplet.root)}" do
           FileUtils.mkdir_p @droplet.sandbox + 'source'
-          #FileUtils.mkdir_p @droplet.sandbox + 'server'
           FileUtils.mkdir_p @droplet.sandbox + 'apache'
           FileUtils.mkdir_p @droplet.sandbox + 'pcre'
           shell "tar xzf #{file.path} -C #{@droplet.sandbox}/source --strip 1 --exclude webapps 2>&1"
@@ -87,10 +86,9 @@ module JavaBuildpack
           
           # Finally bring up the apache
           cd(@droplet.sandbox + 'apache')
-          puts `bin/apachectl start`
+          puts `#{@droplet.sandbox}/apache/bin/apachectl start`
           puts `ps -ef | grep http`
-          puts `ls -alrt /etc/init.d/`
-          puts `bin/apachectl status`
+          puts `#{@droplet.sandbox}/apache/bin/apachectl status`
           
           # Overlay http.conf from resources for Apache to listen on port 80
           @droplet.copy_resources
