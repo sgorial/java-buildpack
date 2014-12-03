@@ -54,12 +54,11 @@ module JavaBuildpack
       def expand(file)
         with_timing "Expanding Apache to #{@droplet.sandbox.relative_path_from(@droplet.root)}" do
           FileUtils.mkdir_p @droplet.sandbox
-          shell "tar xzf #{file.path} -C #{@droplet.sandbox} --strip 1 --exclude webapps 2>&1"
+          shell "tar xzf #{file.path} -C #{@droplet.sandbox}"
 
           puts ""
-          puts `echo #{@application.root}`
-          puts `echo #{@droplet.root}`
-          puts `echo #{@droplet.sandbox}`
+          puts `echo #{@droplet.sandbox.relative_path_from(@droplet.root)}`
+          puts `ls -alrt #{@droplet.sandbox.relative_path_from(@droplet.root)}`
 
           @droplet.copy_resources
         end
