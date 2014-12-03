@@ -19,7 +19,7 @@ module JavaBuildpack
         puts "releasing apache..."
         puts `#{@droplet.sandbox}/apache/bin/apachectl start`
         puts `ps -ef | grep http`
-        puts `#{@droplet.sandbox}/apache/bin/apachectl fullstatus`
+        #puts `#{@droplet.sandbox}/apache/bin/apachectl fullstatus`
       end
 
       protected
@@ -87,16 +87,10 @@ module JavaBuildpack
           puts `make`
           puts `make install`
           
-          # Finally bring up the apache
-          #cd(@droplet.sandbox + 'apache')
-          #puts `#{@droplet.sandbox}/apache/bin/apachectl start`
-          puts `ps -ef | grep http`
-          puts `lsof -i tcp:80`
-          
-          puts `#{@droplet.sandbox}/apache/bin/apachectl fullstatus`
-          
           # Overlay http.conf from resources for Apache to listen on port 80
           @droplet.copy_resources(@droplet.sandbox + 'apache')
+          
+          puts "Done installing Apache and copying resources"
         end
       end
 
