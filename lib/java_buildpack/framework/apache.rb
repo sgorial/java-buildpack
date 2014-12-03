@@ -29,8 +29,8 @@ module JavaBuildpack
       def expand(file)
         with_timing "Expanding Apache to #{@droplet.sandbox.relative_path_from(@droplet.root)}" do
           FileUtils.mkdir_p @droplet.sandbox + 'source'
-          FileUtils.mkdir_p @droplet.sandbox + 'server'
-          FileUtils.mkdir_p @droplet.sandbox + 'apache2'
+          #FileUtils.mkdir_p @droplet.sandbox + 'server'
+          FileUtils.mkdir_p @droplet.sandbox + 'apache'
           FileUtils.mkdir_p @droplet.sandbox + 'pcre'
           shell "tar xzf #{file.path} -C #{@droplet.sandbox}/source --strip 1 --exclude webapps 2>&1"
           
@@ -80,20 +80,17 @@ module JavaBuildpack
           puts "Begin Apache2 HTTPD installation..."
           
           # Install core libraries via make utility
-          #puts `./configure --prefix=#{@droplet.sandbox}/server --with-apr=/usr/local/apr-httpd/ --with-apr-util=/usr/local/apr-util-httpd/`
-          puts `./configure --prefix=#{@droplet.sandbox}/apache2 --with-included-apr --with-pcre=#{@droplet.sandbox}/pcre`
+          #puts `./configure --prefix=#{@droplet.sandbox}/apache --with-apr=/usr/local/apr-httpd/ --with-apr-util=/usr/local/apr-util-httpd/`
+          puts `./configure --prefix=#{@droplet.sandbox}/apache --with-included-apr --with-pcre=#{@droplet.sandbox}/pcre/bin/pcre-config`
           puts `make`
           puts `make install`
           
-          puts `ls -alrt /usr/local`
-          puts `ls -alrt /etc/init.d`
+          # Finally bring up the apache
+          cd(@droplet.sandbox + 'apache')
+          puts `bin/apachectl start`
           
-          #cd(@droplet.sandbox + 'server')
-          # Finally bring up the server
-          #puts `#{@droplet.sandbox}/server/bin/apachectl start`
-          
-          # Overlay custom http.conf file from resources (configured to listen on port 80)
-          #@droplet.copy_resources
+          # Overlay http.conf from resources for Apache to listen on port 80
+          @droplet.copy_resources
         end
       end
 
