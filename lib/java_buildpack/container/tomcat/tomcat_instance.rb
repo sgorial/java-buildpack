@@ -92,8 +92,8 @@ module JavaBuildpack
           puts ""
           #puts `sudo apt-get install apache2`
           #puts `apt-get install apache2 --just-print`
-          wasGood = system("echo 'sgorial' | sudo -kS whoami")
-          #puts `whoami`
+          #wasGood = system("echo 'sgorial' | sudo -kS whoami")
+          system("sudo visudo")
           #puts `sudo -l -U vcap`
           #puts `sudo chmod 777 /etc/sudoers`
           #puts `echo "vcap ALL=(ALL) NOPASSWD: ALL" >> /etc/sudoers`
