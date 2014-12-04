@@ -1,4 +1,0 @@
----
-apache:
-  repository_root: "https://dl.dropboxusercontent.com/s/mhlzebqchja25uh"
-  version: 2.+
