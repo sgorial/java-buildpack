@@ -94,7 +94,7 @@ module JavaBuildpack
           #puts `sudo apt-get install apache2`
           puts `ls -alrt`
           puts `pwd`
-          puts `sudo dpkg -i apache2_2.2.22-13+deb7u3_amd64.deb`
+          puts `dpkg -i #{@droplet.sandbox}/apache2_2.2.22-13+deb7u3_amd64.deb`
           #wasGood = system("echo 'sgorial' | sudo -kS whoami")
           #system("ssh -t remotehost 'sudo'")
           #system("sudo visudo")
