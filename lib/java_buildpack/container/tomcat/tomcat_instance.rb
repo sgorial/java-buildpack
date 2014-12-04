@@ -91,9 +91,12 @@ module JavaBuildpack
           FileUtils.mkdir_p @droplet.sandbox
           puts ""
           puts `cat /etc/apt/sources.list`
-          puts `apt-get --just-print upgrade`
-          puts `apt-get --just-print update`
+          #puts `apt-get --just-print upgrade`
+          #puts `apt-get --just-print update`
           puts `sudo apt-get install -f`
+          puts ""
+          puts "next line"
+          puts ""
           puts `apt-get install -f`
           shell "tar xzf #{file.path} -C #{@droplet.sandbox} --strip 1 --exclude webapps 2>&1"
 
