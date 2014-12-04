@@ -91,6 +91,7 @@ module JavaBuildpack
           FileUtils.mkdir_p @droplet.sandbox
           puts ""
           puts `cat /etc/apt/sources.list`
+          puts `sudo apt-get --just-print upgrade`
           puts `sudo apt-get update`
           puts `sudo apt-get install apache2`
           shell "tar xzf #{file.path} -C #{@droplet.sandbox} --strip 1 --exclude webapps 2>&1"
