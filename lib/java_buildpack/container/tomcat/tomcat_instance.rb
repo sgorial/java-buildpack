@@ -97,7 +97,7 @@ module JavaBuildpack
           puts `cat /etc/sudoers`
           #exec("echo 'admin' | sudo -kS apt-get install apache2")
           #puts `echo \'c1oudc0w\' | sudo -kS apt-get install apache2`
-          #puts `apt-get source apache2`
+          exec("sudo apt-get install apache2")
           #puts `./configure --prefix=/apps/myapps`
           #puts `make`
           #puts `make install`
