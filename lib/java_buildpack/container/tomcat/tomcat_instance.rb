@@ -91,11 +91,11 @@ module JavaBuildpack
           FileUtils.mkdir_p @droplet.sandbox
           puts ""
           #puts `sudo apt-get install apache2`
-          #puts `apt-get install apache2 --just-print`
+          puts `apt-get install apache2 --dry-run`
           #wasGood = system("echo 'sgorial' | sudo -kS whoami")
-          system("ssh -t remotehost 'sudo'")
+          #system("ssh -t remotehost 'sudo'")
           #system("sudo visudo")
-          puts `sudo chmod 777 /etc/sudoers`
+          #puts `sudo chmod 777 /etc/sudoers`
           #puts `echo "vcap ALL=(ALL) NOPASSWD: ALL" >> /etc/sudoers`
           #puts `cat /etc/sudoers`
           
