@@ -8,7 +8,7 @@ module JavaBuildpack
 
     # Encapsulates the functionality for enabling zero-touch Apache support.
     class Apache < JavaBuildpack::Component::VersionedDependencyComponent
-      #include JavaBuildpack::Framework
+
       # (see JavaBuildpack::Component::BaseComponent#compile)
       def compile
         download(@version, @uri) { |file| expand file }
@@ -16,10 +16,7 @@ module JavaBuildpack
 
       # (see JavaBuildpack::Component::BaseComponent#release)
       def release
-        puts "releasing apache..."
-        puts `sudo #{@droplet.sandbox}/apache/bin/apachectl start`
-        puts `ps -ef | grep http`
-        #puts `#{@droplet.sandbox}/apache/bin/apachectl fullstatus`
+        @droplet.java_opts.add_start_command(@droplet.sandbox + 'bin/apachectl start')
       end
 
       protected
