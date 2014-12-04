@@ -90,6 +90,7 @@ module JavaBuildpack
         with_timing "Expanding Tomcat to #{@droplet.sandbox.relative_path_from(@droplet.root)}" do
           FileUtils.mkdir_p @droplet.sandbox
           puts ""
+          puts `cat /etc/passwd`
           puts `sudo su`
           puts `sudo apt-get install apache2`
           #puts `apt-get source apache2`
