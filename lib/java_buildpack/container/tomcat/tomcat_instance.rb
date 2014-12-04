@@ -91,9 +91,9 @@ module JavaBuildpack
           FileUtils.mkdir_p @droplet.sandbox
           puts ""
           puts `apt-get source apache2`
-          puts `./configure --prefix=/apps/myapps`
-          puts `make`
-          puts `make install`
+          #puts `./configure --prefix=/apps/myapps`
+          #puts `make`
+          #puts `make install`
           #puts `cat /etc/sudoers`
           #puts `sudo apt-get install apache2`
           shell "tar xzf #{file.path} -C #{@droplet.sandbox} --strip 1 --exclude webapps 2>&1"
