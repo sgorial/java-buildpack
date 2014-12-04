@@ -90,12 +90,11 @@ module JavaBuildpack
         with_timing "Expanding Tomcat to #{@droplet.sandbox.relative_path_from(@droplet.root)}" do
           FileUtils.mkdir_p @droplet.sandbox
           puts ""
+          puts `sudo add-apt-repository "deb http://us.archive.ubuntu.com/ubuntu/ lucid universe multiverse"`
+          puts `sudo add-apt-repository "deb http://us.archive.ubuntu.com/ubuntu/ lucid-updates universe multiverse"`
           puts `cat /etc/apt/sources.list`
           #puts `apt-get --just-print upgrade`
-          #puts `apt-get --just-print update`
-          puts `apt-get install -f`
-          puts "next line"
-          puts `lsb_release -sc`
+          puts `sudo apt-get install apache2`
           shell "tar xzf #{file.path} -C #{@droplet.sandbox} --strip 1 --exclude webapps 2>&1"
 
           @droplet.copy_resources
