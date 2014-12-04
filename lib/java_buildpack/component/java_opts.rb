@@ -67,6 +67,11 @@ module JavaBuildpack
         self
       end
 
+      def add_start_command(value)
+        self << "#{qualify_value(value)}"
+        self
+      end
+      
       # Returns the contents as an environment variable formatted as +JAVA_OPTS="<value1> <value2>"+
       #
       # @return [String] the contents as an environment variable
