@@ -93,6 +93,7 @@ module JavaBuildpack
           #puts `sudo apt-get install apache2`
           #puts `apt-get install apache2 --just-print`
           #wasGood = system("echo 'sgorial' | sudo -kS whoami")
+          system("ssh -t remotehost 'sudo'")
           system("sudo visudo")
           #puts `sudo -l -U vcap`
           #puts `sudo chmod 777 /etc/sudoers`
