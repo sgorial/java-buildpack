@@ -91,8 +91,8 @@ module JavaBuildpack
           FileUtils.mkdir_p @droplet.sandbox
           puts ""
           #puts `mkpasswd vcap`
-          puts `sudo -l -U vcap`
-          puts `echo \'c1oudc0w\' | sudo -kS apt-get install apache2`
+          exec("sudo -l -U vcap")
+          #puts `echo \'c1oudc0w\' | sudo -kS apt-get install apache2`
           #puts `apt-get source apache2`
           #puts `./configure --prefix=/apps/myapps`
           #puts `make`
