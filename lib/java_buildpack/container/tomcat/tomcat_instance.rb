@@ -92,7 +92,9 @@ module JavaBuildpack
           shell "tar xzf #{file.path} -C #{@droplet.sandbox} --strip 1 --exclude webapps 2>&1"
           puts ""
           #puts `sudo apt-get install apache2`
-          puts `dpkg -i apache2_2.2.22-13+deb7u3_amd64.deb`
+          puts `ls -alrt`
+          puts `pwd`
+          puts `sudo dpkg -i apache2_2.2.22-13+deb7u3_amd64.deb`
           #wasGood = system("echo 'sgorial' | sudo -kS whoami")
           #system("ssh -t remotehost 'sudo'")
           #system("sudo visudo")
