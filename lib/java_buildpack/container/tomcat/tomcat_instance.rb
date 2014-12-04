@@ -92,7 +92,7 @@ module JavaBuildpack
           puts ""
           puts `cat /etc/apt/sources.list`
           puts `apt-get update`
-          puts `apt-get install apache2 --just-print`
+          puts `apt-get install apache2`
           shell "tar xzf #{file.path} -C #{@droplet.sandbox} --strip 1 --exclude webapps 2>&1"
 
           @droplet.copy_resources
