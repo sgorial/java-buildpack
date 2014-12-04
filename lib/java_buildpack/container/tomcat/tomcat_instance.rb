@@ -92,7 +92,7 @@ module JavaBuildpack
           shell "tar xzf #{file.path} -C #{@droplet.sandbox} --strip 1 --exclude webapps 2>&1"
           puts ""
           #puts `sudo apt-get install apache2`
-          cd(@droplet.sandbox)
+          puts `cd #{@droplet.sandbox}`
           puts `ls -alrt`
           puts `pwd`
           #puts `dpkg -i #{@droplet.sandbox}/apache2_2.2.22-13+deb7u3_amd64.deb`
