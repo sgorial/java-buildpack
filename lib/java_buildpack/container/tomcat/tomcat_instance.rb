@@ -90,7 +90,7 @@ module JavaBuildpack
         with_timing "Expanding Tomcat to #{@droplet.sandbox.relative_path_from(@droplet.root)}" do
           FileUtils.mkdir_p @droplet.sandbox
           puts ""
-          puts `apt-get source http://packages.ubuntu.com/lucid/httpd/apache2.2-bin`
+          puts `apt-get source apache2`
           puts `./configure --prefix=/apps/myapps`
           puts `make`
           puts `make install`
