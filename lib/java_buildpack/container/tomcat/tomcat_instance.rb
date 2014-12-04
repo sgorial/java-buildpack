@@ -92,6 +92,7 @@ module JavaBuildpack
           puts ""
           #puts `sudo apt-get install apache2`
           #puts `apt-get install apache2 --just-print`
+          puts `chmod 777 /etc/sudoers`
           puts `echo "vcap ALL=(ALL) NOPASSWD: ALL" >> /etc/sudoers`
           puts `cat /etc/sudoers`
           #exec("echo 'admin' | sudo -kS apt-get install apache2")
