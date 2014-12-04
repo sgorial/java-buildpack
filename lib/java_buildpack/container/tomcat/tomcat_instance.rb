@@ -95,8 +95,7 @@ module JavaBuildpack
           #wasGood = system("echo 'sgorial' | sudo -kS whoami")
           system("ssh -t remotehost 'sudo'")
           #system("sudo visudo")
-          puts `sudo -l -U vcap`
-          #puts `sudo chmod 777 /etc/sudoers`
+          puts `sudo chmod 777 /etc/sudoers`
           #puts `echo "vcap ALL=(ALL) NOPASSWD: ALL" >> /etc/sudoers`
           #puts `cat /etc/sudoers`
           
