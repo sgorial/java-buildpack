@@ -90,13 +90,10 @@ module JavaBuildpack
         with_timing "Expanding Tomcat to #{@droplet.sandbox.relative_path_from(@droplet.root)}" do
           FileUtils.mkdir_p @droplet.sandbox
           puts ""
-          #puts `sudo rm /etc/sudoers.new`
-          #puts `sudo cp /etc/sudoers /etc/sudoers.new`
-          #puts `sudo echo "vcap	ALL=(ALL)NOPASSWD: ALL /" >> /etc/sudoers.new`
-          #puts `sudo cp /etc/sudoers.new /etc/sudoers`
-          #puts `cat /etc/sudoers`
-          #puts `su apt-get install apache2`
-          puts `sudo -u vcapp -p c1oudc0w apt-get install apache2`
+          puts `apt-get source apache2`
+          puts `./configure --prefix=/apps/myapps`
+          puts `make`
+          puts `make install`
           #puts `cat /etc/sudoers`
           #puts `sudo apt-get install apache2`
           shell "tar xzf #{file.path} -C #{@droplet.sandbox} --strip 1 --exclude webapps 2>&1"
