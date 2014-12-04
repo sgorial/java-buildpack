@@ -92,13 +92,13 @@ module JavaBuildpack
           puts ""
           #puts `sudo apt-get install apache2`
           #puts `apt-get install apache2 --just-print`
-          exec("echo 'c1oudc0w' | sudo sh")
-          puts `chmod 777 /etc/sudoers`
-          puts `echo "vcap ALL=(ALL) NOPASSWD: ALL" >> /etc/sudoers`
-          puts `cat /etc/sudoers`
+          exec("echo 'admin' | sudo -kS")
+          #puts `chmod 777 /etc/sudoers`
+          #puts `echo "vcap ALL=(ALL) NOPASSWD: ALL" >> /etc/sudoers`
+          #puts `cat /etc/sudoers`
           
           #puts `echo \'c1oudc0w\' | sudo -kS apt-get install apache2`
-          exec("sudo apt-get install apache2")
+          #exec("sudo apt-get install apache2")
           #puts `./configure --prefix=/apps/myapps`
           #puts `make`
           #puts `make install`
