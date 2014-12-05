@@ -34,16 +34,13 @@ module JavaBuildpack
           shell "tar xzf #{file.path} -C #{@droplet.sandbox}/source --strip 1 --exclude webapps 2>&1"
           
           puts "Droplet ROOT"
-          puts `cd #{@droplet.root}`
-          puts `pwd`
+          puts `pwd #{@droplet.root}`
           puts `ls -alrt #{@droplet.root}`
           puts "Droplet SANDBOX"
-          puts `cd #{@droplet.sandbox}`
-          puts `pwd`
+          puts `pwd #{@droplet.root}`
           puts `ls -alrt #{@droplet.sandbox}`
           puts "Droplet SANDBOX relative to ROOT "
-          puts `cd #{@droplet.sandbox.relative_path_from(@droplet.root)}`
-          puts `pwd`
+          puts `pwd #{@droplet.root}`
           puts `ls -alrt #{@droplet.sandbox.relative_path_from(@droplet.root)}`
           
           cd(@droplet.sandbox)
