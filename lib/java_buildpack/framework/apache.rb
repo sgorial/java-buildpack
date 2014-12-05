@@ -16,7 +16,7 @@ module JavaBuildpack
 
       # (see JavaBuildpack::Component::BaseComponent#release)
       def release
-        @droplet.java_opts.add_start_command(@droplet.sandbox + 'bin/apachectl start')
+        puts `#{@droplet.sandbox + \'bin/apachectl start\')}`
       end
 
       protected
