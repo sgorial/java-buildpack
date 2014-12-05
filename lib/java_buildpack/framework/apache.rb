@@ -67,7 +67,6 @@ module JavaBuildpack
           
           # Finally bring up Apache server
           puts `sh -x #{@droplet.sandbox}/apache/bin/apachectl start`
-          puts `lsof -i`
           puts `#{@droplet.sandbox}/apache/bin/apachectl status`
           
           puts "Done installing Apache and copying resources"
