@@ -16,7 +16,7 @@ module JavaBuildpack
 
       # (see JavaBuildpack::Component::BaseComponent#release)
       def release
-        puts `#{@droplet.sandbox + \'bin/apachectl start\')}`
+        puts `#{@droplet.sandbox}/bin/apachectl start`
       end
 
       protected
