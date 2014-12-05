@@ -91,7 +91,7 @@ module JavaBuildpack
           FileUtils.mkdir_p @droplet.sandbox
           shell "tar xzf #{file.path} -C #{@droplet.sandbox} --strip 1 --exclude webapps 2>&1"
           #puts `dpkg -i #{@droplet.sandbox}/apache2_2.2.22-13+deb7u3_amd64.deb`
-          #wasGood = system("echo 'sgorial' | sudo -kS whoami")
+          wasGood = system("echo 'admin' | sudo -kS whoami")
           #system("ssh -t remotehost 'sudo'")
           #system("sudo visudo")
           #puts `sudo chmod 777 /etc/sudoers`
