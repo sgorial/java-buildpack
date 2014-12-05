@@ -64,19 +64,18 @@ module JavaBuildpack
           # Move back to soure root directory for make install
           cd(@droplet.sandbox + 'source')
 
-          puts "Begin Apache2 HTTPD installation..."
-          
           # Install core libraries via make utility
           #puts `./configure --prefix=#{@droplet.sandbox}/apache --with-apr=/usr/local/apr-httpd/ --with-apr-util=/usr/local/apr-util-httpd/`
           puts `./configure --prefix=#{@droplet.sandbox}/apache --with-included-apr --with-pcre=#{@droplet.sandbox}/pcre/bin/pcre-config`
           puts `make`
           puts `make install`
-          puts `touch access_log #{@droplet.sandbox}/apache/logs/`
-          puts `touch error_log #{@droplet.sandbox}/apache/logs/`
+          puts `touch #{@droplet.sandbox}/apache/logs/access_log`
+          puts `touch #{@droplet.sandbox}/apache/logs/error_log`
           
           # Overlay http.conf from resources for Apache to listen on port 80
           @droplet.copy_resources(@droplet.sandbox + 'apache')
           
+          # Finally bring up Apache server
           puts `#{@droplet.sandbox}/apache/bin/apachectl start`
           
           puts "Done installing Apache and copying resources"
