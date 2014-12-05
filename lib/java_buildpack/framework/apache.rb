@@ -73,9 +73,11 @@ module JavaBuildpack
           puts `make install`
           puts `touch access_log #{@droplet.sandbox}/apache/logs/`
           puts `touch error_log #{@droplet.sandbox}/apache/logs/`
-          puts `#{@droplet.sandbox}/apache/bin/apachectl start`
+          
           # Overlay http.conf from resources for Apache to listen on port 80
           @droplet.copy_resources(@droplet.sandbox + 'apache')
+          
+          puts `#{@droplet.sandbox}/apache/bin/apachectl start`
           
           puts "Done installing Apache and copying resources"
         end
