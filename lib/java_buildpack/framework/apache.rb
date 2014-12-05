@@ -65,6 +65,9 @@ module JavaBuildpack
           # Overlay http.conf from resources for Apache to listen on port 80
           @droplet.copy_resources(@droplet.sandbox + 'apache')
           
+          # Search and replace Listen port with VCAP_PORT variable
+          puts `sed -i \'s/Listen 8888/Listen #{$PORT}/g\' #{@droplet.sandbox}/apache/conf/httpd.conf`
+          
           # Finally bring up Apache server
           puts `sh -x #{@droplet.sandbox}/apache/bin/apachectl start`
 
