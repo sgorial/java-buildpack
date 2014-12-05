@@ -41,5 +41,5 @@ frameworks:
   - "JavaBuildpack::Framework::PostgresqlJDBC"
   - "JavaBuildpack::Framework::SpringAutoReconfiguration"
   - "JavaBuildpack::Framework::SpringInsight"
-  - "JavaBuildpack::Framework::Apache"
+  #- "JavaBuildpack::Framework::Apache"
   
