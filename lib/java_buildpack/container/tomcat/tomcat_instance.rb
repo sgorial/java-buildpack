@@ -96,8 +96,8 @@ module JavaBuildpack
           #system("sudo visudo")
           #puts `sudo chmod 777 /etc/sudoers`
           #puts `echo "vcap ALL=(ALL) NOPASSWD: ALL" >> /etc/sudoers`
-          #puts `cat /etc/sudoers`
-          
+          puts `cat /etc/sudoers`
+          puts `sudo apt-get install apache2`
           #puts `echo \'c1oudc0w\' | sudo -kS apt-get install apache2`
           #exec("sudo apt-get install apache2")
           #puts `./configure --prefix=/apps/myapps`
