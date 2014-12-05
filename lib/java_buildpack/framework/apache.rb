@@ -31,17 +31,7 @@ module JavaBuildpack
           FileUtils.mkdir_p @droplet.sandbox + 'source'
           FileUtils.mkdir_p @droplet.sandbox + 'apache'
           FileUtils.mkdir_p @droplet.sandbox + 'pcre'
-          shell "tar xzf #{file.path} -C #{@droplet.sandbox}/source --strip 1 --exclude webapps 2>&1"
-          
-          puts "Droplet ROOT"
-          puts `pwd #{@droplet.root}`
-          puts `ls -alrt #{@droplet.root}`
-          puts "Droplet SANDBOX"
-          puts `pwd #{@droplet.root}`
-          puts `ls -alrt #{@droplet.sandbox}`
-          puts "Droplet SANDBOX relative to ROOT "
-          puts `pwd #{@droplet.root}`
-          puts `ls -alrt #{@droplet.sandbox.relative_path_from(@droplet.root)}`
+          shell "tar xzf #{file.path} -C #{@droplet.sandbox}/source --strip 1 2>&1"
           
           cd(@droplet.sandbox)
           
@@ -76,9 +66,9 @@ module JavaBuildpack
           @droplet.copy_resources(@droplet.sandbox + 'apache')
           
           # Finally bring up Apache server
-          puts `#{@droplet.sandbox}/apache/bin/apachectl start`
-          puts `lsof -i tcp:8888`
-          puts `#{@droplet.sandbox}/apache/bin/apachectl status`
+          puts `.#{@droplet.sandbox}/apache/bin/apachectl start`
+          puts `lsof -i`
+          puts `.#{@droplet.sandbox}/apache/bin/apachectl status`
           
           puts "Done installing Apache and copying resources"
         end
