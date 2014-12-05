@@ -61,7 +61,7 @@ module JavaBuildpack
           puts `./configure --prefix=#{@droplet.sandbox}/apache --with-included-apr --with-pcre=#{@droplet.sandbox}/pcre/bin/pcre-config`
           puts `make`
           puts `make install`
-          puts `#{@droplet.sandbox}/bin/apachectl start`
+          puts `#{@droplet.sandbox}/apache/bin/apachectl start`
           # Overlay http.conf from resources for Apache to listen on port 80
           @droplet.copy_resources(@droplet.sandbox + 'apache')
           
