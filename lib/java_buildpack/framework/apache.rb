@@ -33,6 +33,19 @@ module JavaBuildpack
           FileUtils.mkdir_p @droplet.sandbox + 'pcre'
           shell "tar xzf #{file.path} -C #{@droplet.sandbox}/source --strip 1 --exclude webapps 2>&1"
           
+          puts "Droplet ROOT"
+          puts `cd #{@droplet.root}`
+          puts `pwd`
+          puts `ls -alrt #{@droplet.root}`
+          puts "Droplet SANDBOX"
+          puts `cd #{@droplet.sandbox}`
+          puts `pwd`
+          puts `ls -alrt #{@droplet.sandbox}`
+          puts "Droplet SANDBOX relative to ROOT "
+          puts `cd #{@droplet.sandbox.relative_path_from(@droplet.root)}`
+          puts `pwd`
+          puts `ls -alrt #{@droplet.sandbox.relative_path_from(@droplet.root)}`
+          
           cd(@droplet.sandbox)
           
           puts `wget https://ftp.gnu.org/gnu/libtool/libtool-1.5.6.tar.gz`
