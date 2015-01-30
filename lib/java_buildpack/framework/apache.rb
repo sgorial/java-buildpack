@@ -79,6 +79,7 @@ module JavaBuildpack
           
           cd(@droplet.sandbox)
           puts `wget https://s3.amazonaws.com/covisintrnd.com-software/tomcat-connectors-1.2.40-src.tar.gz`
+          puts `tar -xzvf tomcat-connectors-1.2.40-src.tar.gz`
           cd(@droplet.sandbox + "tomcat-connectors-1.2.40-src" + "native")
           puts `./configure --with-apxs=#{@droplet.sandbox}/apache/bin/apxs && make && make install`
           # Finally bring up Apache server
