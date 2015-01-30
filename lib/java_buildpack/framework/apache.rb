@@ -19,12 +19,12 @@ module JavaBuildpack
       # (see JavaBuildpack::Component::BaseComponent#release)
       def release
           # Search and replace Listen port with VCAP_PORT variable
-          #puts `for var in \`env|cut -f1 -d=\`; do echo "PassEnv \$var" >> #{@droplet.sandbox}/apache/conf/httpd.conf; done`
-          puts `sed -i \'s/Listen 80/Listen #{$PORT}/g\' #{@droplet.sandbox}/apache/conf/httpd.conf`
-          puts `sed -i \'s/Listen 12.34.56.78:80/Listen #{$PORT}/g\' #{@droplet.sandbox}/apache/conf/httpd.conf`
-          puts `cat #{@droplet.sandbox}/apache/conf/httpd.conf`
+          puts `for var in \`env|cut -f1 -d=\`; do echo "PassEnv \$var" >> /home/vcap/app/.java-buildpack/apache/httpd/conf/httpd.conf; done`
+          #puts `sed -i \'s/Listen 80/Listen #{$PORT}/g\' #{@droplet.sandbox}/apache/conf/httpd.conf`
+          #puts `sed -i \'s/Listen 12.34.56.78:80/Listen #{$PORT}/g\' #{@droplet.sandbox}/apache/conf/httpd.conf`
+          puts `cat /home/vcap/app/.java-buildpack/apache/httpd/conf/httpd.conf`
           # Finally bring up Apache server
-          puts `exec #{@droplet.sandbox}/apache/bin/httpd -DNO_DETACH`
+          puts `exec /home/vcap/app/.java-buildpack/apache/httpd/bin/httpd -DNO_DETACH`
       end
 
       protected
@@ -36,7 +36,7 @@ module JavaBuildpack
 
       def expand(file)
         with_timing "Expanding Apache to #{@droplet.sandbox.relative_path_from(@droplet.root)}" do
-          FileUtils.mkdir_p @droplet.sandbox + 'apache'
+          FileUtils.mkdir_p @droplet.sandbox + 'httpd'
           
           cd(@droplet.sandbox)
          
@@ -44,17 +44,17 @@ module JavaBuildpack
           puts `wget https://s3.amazonaws.com/covisintrnd.com-software/httpd-2.2.29.tar.gz`
           puts `tar -xzvf httpd-2.2.29.tar.gz`
           cd(@droplet.sandbox + "httpd-2.2.29")
-          puts `./configure --prefix=#{@droplet.sandbox}/apache --enable-mods-shared=all --enable-http --enable-deflate --enable-expires --enable-slotmem-shm --enable-headers --enable-rewrite --enable-proxy --enable-proxy-balancer --enable-proxy-http --enable-proxy-fcgi --enable-mime-magic --enable-log-debug --enable-so --with-expat=builtin --with-mpm=event --with-included-apr`
+          puts `./configure --prefix=#{@droplet.sandbox}/httpd --enable-mods-shared=all --enable-http --enable-deflate --enable-expires --enable-slotmem-shm --enable-headers --enable-rewrite --enable-proxy --enable-proxy-balancer --enable-proxy-http --enable-proxy-fcgi --enable-mime-magic --enable-log-debug --enable-so --with-expat=builtin --with-mpm=event --with-included-apr`
           puts `make`
           puts `make install`
-          puts `chmod -R uog+rx #{@droplet.sandbox}/apache`
-          puts `touch #{@droplet.sandbox}/apache/logs/access_log`
-          puts `touch #{@droplet.sandbox}/apache/logs/error_log`
+          puts `chmod -R uog+rx #{@droplet.sandbox}/httpd`
+          puts `touch #{@droplet.sandbox}/httpd/logs/access_log`
+          puts `touch #{@droplet.sandbox}/httpd/logs/error_log`
           
           # Overlay http.conf from resources for Apache to listen on port 80
-          @droplet.copy_resources(@droplet.sandbox + 'apache')
+          @droplet.copy_resources(@droplet.sandbox + 'httpd')
           
-          cd(@droplet.sandbox)
+          #cd(@droplet.sandbox)
           #puts `wget https://s3.amazonaws.com/covisintrnd.com-software/tomcat-connectors-1.2.40-src.tar.gz`
           #puts `tar -xzvf tomcat-connectors-1.2.40-src.tar.gz`
           #cd(@droplet.sandbox + "tomcat-connectors-1.2.40-src" + "native")
@@ -66,7 +66,9 @@ module JavaBuildpack
           #puts `cat /app/apache/conf/httpd.conf`
           # Finally bring up Apache server
           #puts `exec #{@droplet.sandbox}/apache/bin/httpd -DNO_DETACH`
-
+          puts `ls -lart #{@droplet.root}`
+          puts `ls -alrt #{@droplet.sandbox}`
+          puts `ls -alrt #{@droplet.sandbox}/httpd`
           puts "Done installing Apache and copying resources"
         end
       end
