@@ -17,11 +17,11 @@ module JavaBuildpack
       # (see JavaBuildpack::Component::BaseComponent#release)
       def release
           # Search and replace Listen port with VCAP_PORT variable
-          puts `for var in \`env|cut -f1 -d=\`; do echo "PassEnv \$var" >> /app/apache/conf/httpd.conf; done`
+          puts `for var in \`env|cut -f1 -d=\`; do echo "PassEnv \$var" >> /app/.java-buildpack/apache/conf/httpd.conf; done`
           #puts `sed -i \'s/VCAP_PORT/#{$PORT}/g\' /app/apache/conf/httpd.conf`
-          puts `cat /app/apache/conf/httpd.conf`
+          puts `cat /app/.java-buildpack/apache/conf/httpd.conf`
           # Finally bring up Apache server
-          puts `exec /app/apache/bin/httpd -DNO_DETACH`
+          puts `exec /app/.java-buildpack/apache/bin/httpd -DNO_DETACH`
       end
 
       protected
@@ -41,7 +41,7 @@ module JavaBuildpack
           puts `wget https://s3.amazonaws.com/covisintrnd.com-software/httpd-2.2.29.tar.gz`
           puts `tar -xzvf httpd-2.2.29.tar.gz`
           cd(@droplet.sandbox + "httpd-2.2.29")
-          puts `./configure --prefix=/app/apache --enable-mods-shared=all --enable-http --enable-deflate --enable-expires --enable-slotmem-shm --enable-headers --enable-rewrite --enable-proxy --enable-proxy-balancer --enable-proxy-http --enable-proxy-fcgi --enable-mime-magic --enable-log-debug --enable-so --with-expat=builtin --with-mpm=event --with-included-apr`
+          puts `./configure --prefix=/home/vcap/app/.java-buildpack/apache --enable-mods-shared=all --enable-http --enable-deflate --enable-expires --enable-slotmem-shm --enable-headers --enable-rewrite --enable-proxy --enable-proxy-balancer --enable-proxy-http --enable-proxy-fcgi --enable-mime-magic --enable-log-debug --enable-so --with-expat=builtin --with-mpm=event --with-included-apr`
           puts `make`
           puts `make install`
           puts `chmod -R uog+rx #{@droplet.sandbox}/apache`
