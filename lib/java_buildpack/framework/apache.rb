@@ -11,8 +11,8 @@ module JavaBuildpack
 
       # (see JavaBuildpack::Component::BaseComponent#compile)
       def compile
-        puts "@droplet.sandbox"
-        puts "@droplet.root"
+        puts "#{@droplet.sandbox}"
+        puts "#{@droplet.root}"
         download(@version, @uri) { |file| expand file }
       end
 
