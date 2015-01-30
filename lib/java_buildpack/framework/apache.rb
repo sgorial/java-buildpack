@@ -33,7 +33,7 @@ module JavaBuildpack
 
       def expand(file)
         with_timing "Expanding Apache to #{@droplet.sandbox.relative_path_from(@droplet.root)}" do
-          #FileUtils.mkdir_p @droplet.sandbox + 'apache'
+          FileUtils.mkdir_p @droplet.sandbox + 'apache'
           
           cd(@droplet.sandbox)
          
