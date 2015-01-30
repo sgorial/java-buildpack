@@ -33,7 +33,7 @@ module JavaBuildpack
 
       # (see JavaBuildpack::Component::ModularComponent#command)
       def command
-        @droplet.java_opts.add_system_property 'http.port', '$PORT'
+        @droplet.java_opts.add_system_property 'http.port', '8080'
 
         [
           @droplet.java_home.as_env_var,
