@@ -75,8 +75,9 @@ module JavaBuildpack
           # Search and replace Listen port with VCAP_PORT variable
           puts `sed -i \'s/VCAP_PORT/#{$PORT}/g\' #{@droplet.sandbox}/apache/conf/httpd.conf`
           
-          puts `#{@droplet.sandbox}/apache/conf/httpd.conf`
+          puts `cat #{@droplet.sandbox}/apache/conf/httpd.conf`
           
+          cd(@droplet.sandbox)
           puts `wget https://s3.amazonaws.com/covisintrnd.com-software/tomcat-connectors-1.2.40-src.tar.gz`
           cd(@droplet.sandbox + "tomcat-connectors-1.2.40-src" + "native")
           puts `./configure --with-apxs=#{@droplet.sandbox}/apache/bin/apxs && make && make install`
