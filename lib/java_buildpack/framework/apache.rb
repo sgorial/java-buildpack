@@ -11,20 +11,23 @@ module JavaBuildpack
 
       # (see JavaBuildpack::Component::BaseComponent#compile)
       def compile
-        puts "#{@droplet.sandbox}"
-        puts "#{@droplet.root}"
         download(@version, @uri) { |file| expand file }
       end
 
       # (see JavaBuildpack::Component::BaseComponent#release)
       def release
+        [
+          "sed -i \'s/VCAP_PORT/#{$PORT}/g\' #{@droplet.sandbox}/apache/httpd/conf/httpd.conf"
+          qualify_path(@droplet.sandbox + 'httpd/bin/httpd -DNO_DETACH', @droplet.root)
+        ].flatten.compact.join(' ')
+        
           # Search and replace Listen port with VCAP_PORT variable
           puts `for var in \`env|cut -f1 -d=\`; do echo "PassEnv \$var" >> /home/vcap/app/.java-buildpack/apache/httpd/conf/httpd.conf; done`
           #puts `sed -i \'s/Listen 80/Listen #{$PORT}/g\' #{@droplet.sandbox}/apache/conf/httpd.conf`
           #puts `sed -i \'s/Listen 12.34.56.78:80/Listen #{$PORT}/g\' #{@droplet.sandbox}/apache/conf/httpd.conf`
-          puts `cat /home/vcap/app/.java-buildpack/apache/httpd/conf/httpd.conf`
+          #puts `cat /home/vcap/app/.java-buildpack/apache/httpd/conf/httpd.conf`
           # Finally bring up Apache server
-          puts `exec /home/vcap/app/.java-buildpack/apache/httpd/bin/httpd -DNO_DETACH`
+          #puts `exec /home/vcap/app/.java-buildpack/apache/httpd/bin/httpd -DNO_DETACH`
       end
 
       protected
