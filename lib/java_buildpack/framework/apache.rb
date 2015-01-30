@@ -17,7 +17,8 @@ module JavaBuildpack
       # (see JavaBuildpack::Component::BaseComponent#release)
       def release
         [
-          qualify_path(@droplet.sandbox + 'httpd/bin/httpd -DNO_DETACH -p $PORT', @droplet.root)
+          "$PWD/.java-buildpack/apache/httpd/bin/httpd -DNO_DETACH -p $PORT"
+          #qualify_path(@droplet.sandbox + 'httpd/bin/httpd -DNO_DETACH -p $PORT', @droplet.root)
         ].flatten.compact.join(' ')
         
           # Search and replace Listen port with VCAP_PORT variable
