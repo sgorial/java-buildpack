@@ -17,11 +17,11 @@ module JavaBuildpack
       # (see JavaBuildpack::Component::BaseComponent#release)
       def release
           # Search and replace Listen port with VCAP_PORT variable
-          puts `for var in \`env|cut -f1 -d=\`; do echo "PassEnv \$var" >> /app/.java-buildpack/apache/conf/httpd.conf; done`
+          puts `for var in \`env|cut -f1 -d=\`; do echo "PassEnv \$var" >> /home/vcap/app/.java-buildpack/apache/conf/httpd.conf; done`
           #puts `sed -i \'s/VCAP_PORT/#{$PORT}/g\' /app/apache/conf/httpd.conf`
-          puts `cat /app/.java-buildpack/apache/conf/httpd.conf`
+          puts `cat /home/vcap/app/.java-buildpack/apache/conf/httpd.conf`
           # Finally bring up Apache server
-          puts `exec /app/.java-buildpack/apache/bin/httpd -DNO_DETACH`
+          puts `exec /home/vcap/app/.java-buildpack/apache/bin/httpd -DNO_DETACH`
       end
 
       protected
