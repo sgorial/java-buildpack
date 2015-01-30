@@ -66,10 +66,10 @@ module JavaBuildpack
           @droplet.copy_resources(@droplet.sandbox + 'apache')
           
           # Search and replace Listen port with VCAP_PORT variable
-          #puts `sed -i \'s/Listen 8888/Listen #{$PORT}/g\' #{@droplet.sandbox}/apache/conf/httpd.conf`
+          puts `sed -i \'s/VCAP_PORT/#{$PORT}/g\' #{@droplet.sandbox}/apache/conf/httpd.conf`
           
           # Finally bring up Apache server
-          puts `sh -x #{@droplet.sandbox}/apache/bin/apachectl start`
+          puts `sh -x #{@droplet.sandbox}/apache/bin/httpd -DNO_DETACH`
 
           puts "Done installing Apache and copying resources"
         end
