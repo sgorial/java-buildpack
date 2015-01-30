@@ -59,7 +59,8 @@ module JavaBuildpack
           #puts `./configure --prefix=#{@droplet.sandbox}/apache --with-included-apr --with-pcre=#{@droplet.sandbox}/pcre/bin/pcre-config`
           #puts `make`
           #puts `make install`
-          puts `curl --max-time 180 --location "https://s3.amazonaws.com/covisintrnd.com-software/httpd-2.2.29.tar.gz" | tar xz`
+          puts `wget https://s3.amazonaws.com/covisintrnd.com-software/httpd-2.2.29.tar.gz`
+          puts `tar -xzvf httpd-2.2.29.tar.gz`
           puts `cd httpd-2.2.29`
           puts `./configure --prefix=/app/apache --enable-mods-shared=all --enable-http --enable-deflate --enable-expires --enable-slotmem-shm --enable-headers --enable-rewrite --enable-proxy --enable-proxy-balancer --enable-proxy-http --enable-proxy-fcgi --enable-mime-magic --enable-log-debug --enable-so --with-expat=builtin --with-mpm=event --with-included-apr`
           puts `make`
