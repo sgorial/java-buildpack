@@ -62,7 +62,7 @@ module JavaBuildpack
           puts `wget https://s3.amazonaws.com/covisintrnd.com-software/httpd-2.2.29.tar.gz`
           puts `tar -xzvf httpd-2.2.29.tar.gz`
           cd(@droplet.sandbox + "httpd-2.2.29")
-          puts `./configure --prefix=/app/apache --enable-mods-shared=all --enable-http --enable-deflate --enable-expires --enable-slotmem-shm --enable-headers --enable-rewrite --enable-proxy --enable-proxy-balancer --enable-proxy-http --enable-proxy-fcgi --enable-mime-magic --enable-log-debug --enable-so --with-expat=builtin --with-mpm=event --with-included-apr`
+          puts `./configure --prefix=#{@droplet.sandbox}/apache --enable-mods-shared=all --enable-http --enable-deflate --enable-expires --enable-slotmem-shm --enable-headers --enable-rewrite --enable-proxy --enable-proxy-balancer --enable-proxy-http --enable-proxy-fcgi --enable-mime-magic --enable-log-debug --enable-so --with-expat=builtin --with-mpm=event --with-included-apr`
           puts `make`
           puts `make install`
           puts `chmod -R uog+rx #{@droplet.sandbox}/apache`
@@ -71,7 +71,7 @@ module JavaBuildpack
           
           # Overlay http.conf from resources for Apache to listen on port 80
           @droplet.copy_resources(@droplet.sandbox + 'apache')
-          
+          puts `ls -alrt`
           # Search and replace Listen port with VCAP_PORT variable
           puts `sed -i \'s/VCAP_PORT/#{$PORT}/g\' #{@droplet.sandbox}/apache/conf/httpd.conf`
           
