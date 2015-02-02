@@ -94,6 +94,7 @@ module JavaBuildpack
           shell "#{@droplet.sandbox}/bin/catalina.sh run &"
           configure_linking
           configure_jasper
+          puts `ps aux | grep java`
         end
       end
 
