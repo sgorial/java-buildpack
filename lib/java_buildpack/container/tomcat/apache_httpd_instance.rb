@@ -2,8 +2,6 @@ require 'fileutils'
 require 'java_buildpack/component/base_component'
 require 'java_buildpack/container'
 require 'java_buildpack/container/tomcat/tomcat_utils'
-require 'java_buildpack/util/tokenized_version'
-include FileUtils
 
 module JavaBuildpack
   module Container
@@ -12,27 +10,17 @@ module JavaBuildpack
     class ApacheHttpdInstance < JavaBuildpack::Component::BaseComponent
       include JavaBuildpack::Container
 
-      # Creates an instance
-      #
-      # @param [Hash] context a collection of utilities used the component
+      # (see JavaBuildpack::Component::BaseComponent#detect)
       def detect
       end
 
       # (see JavaBuildpack::Component::BaseComponent#compile)
       def compile
-        download(@version, @uri) { |file| expand file }
-        link_to(@application.root.children, root)
+        link_to(container_libs_directory.children, tomcat_lib) if container_libs_directory.exist?
       end
 
       # (see JavaBuildpack::Component::BaseComponent#release)
       def release
-      end
-
-      protected
-
-      # (see JavaBuildpack::Component::VersionedDependencyComponent#supports?)
-      def supports?
-        true
       end
 
       def expand(file)
@@ -59,7 +47,6 @@ module JavaBuildpack
           puts "Done installing Apache and copying resources"
         end
       end
-
     end
 
   end
