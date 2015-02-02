@@ -34,3 +34,6 @@ redis_store:
   database: 0
   timeout: 2000
   connection_pool_size: 2
+apache:
+  version: 2.+
+  repository_root: "https://dl.dropboxusercontent.com/s/v89g6cz169laaao"
