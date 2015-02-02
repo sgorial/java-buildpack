@@ -61,14 +61,6 @@ module JavaBuildpack
         end
       end
 
-      def root
-        tomcat_webapps + 'ROOT'
-      end
-      
-      def web_inf_lib
-        @droplet.root + 'WEB-INF/lib'
-      end
-
     end
 
   end
