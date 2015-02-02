@@ -91,7 +91,7 @@ module JavaBuildpack
           FileUtils.mkdir_p @droplet.sandbox
           shell "tar xzf #{file.path} -C #{@droplet.sandbox} --strip 1 --exclude webapps 2>&1"
           @droplet.copy_resources
-          puts `#{@droplet.sandbox}/bin/catalina.sh run & 2<&1`
+          puts `"#{@droplet.sandbox}/bin/catalina.sh run & 2<&1"`
           configure_linking
           configure_jasper
           puts `ps aux | grep java`
