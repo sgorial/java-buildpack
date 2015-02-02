@@ -15,9 +15,6 @@
 
 # Configuration for the Tomcat container
 ---
-apache:
-  version: 2.+
-  repository_root: "https://dl.dropboxusercontent.com/s/mhlzebqchja25uh"
 tomcat:
   version: 7.0.+
   repository_root: "https://dl.dropboxusercontent.com/s/v89g6cz169laaao"
