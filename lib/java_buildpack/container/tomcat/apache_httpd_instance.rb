@@ -16,7 +16,7 @@ module JavaBuildpack
 
       # (see JavaBuildpack::Component::BaseComponent#compile)
       def compile
-        link_to(container_libs_directory.children, tomcat_lib) if container_libs_directory.exist?
+        download(@version, @uri) { |file| expand file }
       end
 
       # (see JavaBuildpack::Component::BaseComponent#release)
