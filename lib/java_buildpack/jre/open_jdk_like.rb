@@ -47,6 +47,7 @@ module JavaBuildpack
       # (see JavaBuildpack::Component::BaseComponent#compile)
       def compile
         download_tar
+        puts "#PWD"
         @droplet.copy_resources
       end
 
