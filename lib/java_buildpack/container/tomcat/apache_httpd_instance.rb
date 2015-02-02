@@ -34,6 +34,9 @@ module JavaBuildpack
           puts `touch #{@droplet.sandbox}/httpd/logs/access_log`
           puts `touch #{@droplet.sandbox}/httpd/logs/error_log`
           
+          cd(@droplet.sandbox)
+          puts `rm -rf httpd-2.2.29/`
+          
           # Overlay http.conf from resources for Apache to listen on port 80
           @droplet.copy_resources(@droplet.sandbox + 'httpd')
           
