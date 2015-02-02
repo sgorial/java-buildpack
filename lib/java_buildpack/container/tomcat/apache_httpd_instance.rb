@@ -40,6 +40,8 @@ module JavaBuildpack
           # Overlay http.conf from resources for Apache to listen on port 80
           @droplet.copy_resources(@droplet.sandbox + 'httpd')
           
+          puts `ls -alrt #{@droplet.sandbox}`
+          
           puts "Done installing Apache and copying resources"
         end
       end
