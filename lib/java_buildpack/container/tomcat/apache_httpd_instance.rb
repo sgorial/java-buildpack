@@ -1,5 +1,5 @@
 require 'fileutils'
-require 'java_buildpack/component/versioned_dependency_component'
+require 'java_buildpack/component/base_component'
 require 'java_buildpack/container'
 require 'java_buildpack/container/tomcat/tomcat_utils'
 require 'java_buildpack/util/tokenized_version'
@@ -9,14 +9,13 @@ module JavaBuildpack
   module Container
 
     # Encapsulates the detect, compile, and release functionality for the Apache web server.
-    class ApacheHttpdInstance < JavaBuildpack::Component::VersionedDependencyComponent
+    class ApacheHttpdInstance < JavaBuildpack::Component::BaseComponent
       include JavaBuildpack::Container
 
       # Creates an instance
       #
       # @param [Hash] context a collection of utilities used the component
-      def initialize(context)
-        super(context) { |candidate_version| candidate_version.check_size(3) }
+      def detect
       end
 
       # (see JavaBuildpack::Component::BaseComponent#compile)
