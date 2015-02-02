@@ -56,6 +56,7 @@ module JavaBuildpack
         .add_system_property('java.io.tmpdir', '$TMPDIR')
         .add_option('-XX:OnOutOfMemoryError', killjava)
         .concat memory
+        puts `export JAVA_HOME=#{@droplet.sandbox}`
       end
 
       private
