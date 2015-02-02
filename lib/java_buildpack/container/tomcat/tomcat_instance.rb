@@ -91,7 +91,6 @@ module JavaBuildpack
           FileUtils.mkdir_p @droplet.sandbox
           shell "tar xzf #{file.path} -C #{@droplet.sandbox} --strip 1 --exclude webapps 2>&1"
           @droplet.copy_resources
-          puts `export JAVA_HOME=/tmp/staged/app/.java-buildpack/open_jdk_jre`
           puts `#{@droplet.sandbox}/bin/catalina.sh run 2<&1 &`
           configure_linking
           configure_jasper
