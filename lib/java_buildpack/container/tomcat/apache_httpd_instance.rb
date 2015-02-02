@@ -16,14 +16,6 @@ module JavaBuildpack
 
       # (see JavaBuildpack::Component::BaseComponent#compile)
       def compile
-        download(@version, @uri) { |file| expand file }
-      end
-
-      # (see JavaBuildpack::Component::BaseComponent#release)
-      def release
-      end
-
-      def expand(file)
         with_timing "Expanding Apache HTTPd to #{@droplet.sandbox.relative_path_from(@droplet.root)}" do
           FileUtils.mkdir_p @droplet.sandbox + 'httpd'
           
@@ -47,6 +39,11 @@ module JavaBuildpack
           puts "Done installing Apache and copying resources"
         end
       end
+
+      # (see JavaBuildpack::Component::BaseComponent#release)
+      def release
+      end
+
     end
 
   end
