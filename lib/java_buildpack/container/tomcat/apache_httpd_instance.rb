@@ -3,6 +3,7 @@ require 'java_buildpack/component/versioned_dependency_component'
 require 'java_buildpack/container'
 require 'java_buildpack/container/tomcat/tomcat_utils'
 require 'java_buildpack/util/tokenized_version'
+include FileUtils
 
 module JavaBuildpack
   module Container
@@ -39,13 +40,13 @@ module JavaBuildpack
         with_timing "Expanding Apache HTTPd to #{@droplet.sandbox.relative_path_from(@droplet.root)}" do
           FileUtils.mkdir_p @droplet.sandbox + 'httpd'
           
-          puts `cd #{@droplet.sandbox}`
+          cd(@droplet.sandbox)
          
           # compile Apache HTTPd from source
           puts `wget https://s3.amazonaws.com/covisintrnd.com-software/httpd-2.2.29.tar.gz`
           puts `tar -xzvf httpd-2.2.29.tar.gz`
           
-          puts `cd #{@droplet.sandbox}/httpd-2.2.29`
+          cd(@droplet.sandbox + "httpd-2.2.29")
           puts `./configure --prefix=#{@droplet.sandbox}/httpd --enable-mods-shared=all --enable-http --enable-deflate --enable-expires --enable-slotmem-shm --enable-headers --enable-rewrite --enable-proxy --enable-proxy-balancer --enable-proxy-http --enable-proxy-fcgi --enable-mime-magic --enable-log-debug --enable-so --with-expat=builtin --with-mpm=event --with-included-apr`
           puts `make`
           puts `make install`
