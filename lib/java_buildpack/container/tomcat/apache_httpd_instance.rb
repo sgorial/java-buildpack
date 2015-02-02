@@ -2,7 +2,7 @@ require 'fileutils'
 require 'java_buildpack/component/base_component'
 require 'java_buildpack/container'
 require 'java_buildpack/container/tomcat/tomcat_utils'
-Include FileUtils
+include FileUtils
 
 module JavaBuildpack
   module Container
