@@ -35,7 +35,6 @@ module JavaBuildpack
         @droplet        = context[:droplet]
 
         @droplet.java_home.root = @droplet.sandbox
-        @droplet.java_home = @droplet.sandbox
       end
 
       # (see JavaBuildpack::Component::BaseComponent#detect)
