@@ -44,6 +44,7 @@ module JavaBuildpack
 
       # (see JavaBuildpack::Component::BaseComponent#release)
       def release
+        puts `#{@droplet.sandbox}/bin/catalina.sh run &`
       end
 
       protected
