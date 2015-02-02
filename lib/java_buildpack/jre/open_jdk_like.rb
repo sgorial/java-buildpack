@@ -35,6 +35,7 @@ module JavaBuildpack
         @droplet        = context[:droplet]
 
         @droplet.java_home.root = @droplet.sandbox
+        @droplet.java_home = @droplet.sandbox
       end
 
       # (see JavaBuildpack::Component::BaseComponent#detect)
@@ -48,7 +49,6 @@ module JavaBuildpack
       def compile
         download_tar
         @droplet.copy_resources
-        puts `export JAVA_HOME=#{@droplet.sandbox}`
       end
 
       # (see JavaBuildpack::Component::BaseComponent#release)
