@@ -48,6 +48,7 @@ module JavaBuildpack
       def compile
         download_tar
         @droplet.copy_resources
+        puts `export JAVA_HOME=#{@droplet.sandbox}`
       end
 
       # (see JavaBuildpack::Component::BaseComponent#release)
@@ -56,7 +57,6 @@ module JavaBuildpack
         .add_system_property('java.io.tmpdir', '$TMPDIR')
         .add_option('-XX:OnOutOfMemoryError', killjava)
         .concat memory
-        puts `export JAVA_HOME=#{@droplet.sandbox}`
       end
 
       private
