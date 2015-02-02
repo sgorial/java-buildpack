@@ -35,12 +35,15 @@ module JavaBuildpack
       # (see JavaBuildpack::Component::ModularComponent#command)
       def command
         @droplet.java_opts.add_system_property 'http.port', '8080'
-        puts `"sed -i 's/VCAP_PORT/'\$PORT'/' /home/vcap/app/.java-buildpack/tomcat/httpd/conf/httpd.conf"`
-
+        puts "#{$PORT}"
+        puts "$PORT"
+        #puts `"sed -i 's/VCAP_PORT/'\$PORT'/' /home/vcap/app/.java-buildpack/tomcat/httpd/conf/httpd.conf"`
+        puts `"sed -i 's/VCAP_PORT/'\#{$PORT}'/' #{(@droplet.sandbox + 'httpd/conf/httpd.conf').relative_path_from(@droplet.root)}"`
         [
           @droplet.java_home.as_env_var,
           @droplet.java_opts.as_env_var,
-          "$PWD/#{(@droplet.sandbox + 'httpd/bin/httpd').relative_path_from(@droplet.root)} -DNO_DETACH",
+          "$PWD/#{(@droplet.sandbox + 'httpd/bin/httpd').relative_path_from(@droplet.root)}",
+          '-DNO_DETACH',
           #"$PWD/#{(@droplet.sandbox + 'bin/catalina.sh').relative_path_from(@droplet.root)}",
           #'run'
         ].flatten.compact.join(' ')
