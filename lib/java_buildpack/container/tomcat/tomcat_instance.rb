@@ -44,7 +44,6 @@ module JavaBuildpack
 
       # (see JavaBuildpack::Component::BaseComponent#release)
       def release
-        puts `#{@droplet.sandbox}/bin/catalina.sh run &`
       end
 
       protected
@@ -92,7 +91,7 @@ module JavaBuildpack
           FileUtils.mkdir_p @droplet.sandbox
           shell "tar xzf #{file.path} -C #{@droplet.sandbox} --strip 1 --exclude webapps 2>&1"
           @droplet.copy_resources
-          
+          shell "#{@droplet.sandbox}/bin/catalina.sh run &"
           configure_linking
           configure_jasper
         end
